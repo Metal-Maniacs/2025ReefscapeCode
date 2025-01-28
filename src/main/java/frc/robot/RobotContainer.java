@@ -1,7 +1,9 @@
 package frc.robot;
 
+import frc.robot.subsystems.Drivetrain;
+
 public class RobotContainer {
-    private final Drivetrain m_drivetrain = new Drivetrain();
+    private static final Drivetrain m_drivetrain = new Drivetrain();
 
     public RobotContainer() {
         configureBindings();
