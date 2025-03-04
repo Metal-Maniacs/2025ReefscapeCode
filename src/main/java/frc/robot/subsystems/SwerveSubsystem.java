@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -36,14 +37,15 @@ public class SwerveSubsystem extends SubsystemBase {
   File directory = new File(Filesystem.getDeployDirectory(),"swerve");
   SwerveDrive swerveDrive;
 
+  
   public static final SparkMax motor_back_left = new SparkMax(Constants.motor_back_left_id, SparkLowLevel.MotorType.kBrushed);
   public static final SparkMax motor_back_right = new SparkMax(Constants.motor_back_right_id, SparkLowLevel.MotorType.kBrushed);
   public static final SparkMax motor_front_right = new SparkMax(Constants.motor_front_right_id, SparkLowLevel.MotorType.kBrushed);
-
   public SwerveSubsystem() {
         try
     {
-      motor_back_right.set(1);
+      System.out.println("creating new subsystem");
+      //motor_back_right.set(1);
       swerveDrive = new SwerveParser(directory).createSwerveDrive(Constants.maxspeed,
                                                                   new Pose2d(new Translation2d(Meter.of(1),
                                                                                                Meter.of(4)),
