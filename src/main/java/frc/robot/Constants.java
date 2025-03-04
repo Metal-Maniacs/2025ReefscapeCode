@@ -4,8 +4,8 @@
 
 package frc.robot;
 
-import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.SparkLowLevel;
+//import com.revrobotics.spark.SparkMax;
+//import com.revrobotics.spark.SparkLowLevel;
 
 import edu.wpi.first.math.util.Units;
 
@@ -23,10 +23,15 @@ public final class Constants {
     public static final double DEADBAND = 0.05;
   }
 
-public static final double MAX_SPEED = Units.feetToMeters(4.5);
-// TODO define motors with canIDs
+public static final double maxspeed = Units.feetToMeters(4.5);
+
 // | note* miles wrote this code based mostly off vibes so it might be wrong
 // V
 //nvm this is wrong public static final SparkMax motor_back_left = new SparkMax(3, SparkLowLevel.MotorType.kBrushed)
+
 public static final int motor_back_left_id = 3; // <- this one should be right, you need to put the code above in the susbsystem
+public static final int motor_front_left_id = 2;
+public static final int motor_back_right_id = 4;
+public static final int motor_front_right_id = 1;
+
 }

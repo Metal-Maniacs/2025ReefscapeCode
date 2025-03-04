@@ -11,6 +11,9 @@ import frc.robot.Constants;
 import java.io.File;
 import java.util.function.Supplier;
 
+import com.revrobotics.spark.SparkLowLevel;
+import com.revrobotics.spark.SparkMax;
+
 import edu.wpi.first.wpilibj.Filesystem;
 import swervelib.parser.SwerveParser;
 import swervelib.SwerveDrive;
@@ -24,17 +27,24 @@ import edu.wpi.first.math.util.Units;
 import static edu.wpi.first.units.Units.Meter;
 
 
+
+
 public class SwerveSubsystem extends SubsystemBase {
   /** Creates a new beeps boop beeps on beeps with a side of bobs and bees */
   
-double maximumSpeed = Units.feetToMeters(4.5);
-File directory = new File(Filesystem.getDeployDirectory(),"swerve");
-SwerveDrive  swerveDrive;
+  double maximumSpeed = Units.feetToMeters(4.5);
+  File directory = new File(Filesystem.getDeployDirectory(),"swerve");
+  SwerveDrive swerveDrive;
+
+  public static final SparkMax motor_back_left = new SparkMax(Constants.motor_back_left_id, SparkLowLevel.MotorType.kBrushed);
+  public static final SparkMax motor_back_right = new SparkMax(Constants.motor_back_right_id, SparkLowLevel.MotorType.kBrushed);
+  public static final SparkMax motor_front_right = new SparkMax(Constants.motor_front_right_id, SparkLowLevel.MotorType.kBrushed);
 
   public SwerveSubsystem() {
         try
     {
-      swerveDrive = new SwerveParser(directory).createSwerveDrive(Constants.MAX_SPEED,
+      motor_back_right.set(1);
+      swerveDrive = new SwerveParser(directory).createSwerveDrive(Constants.maxspeed,
                                                                   new Pose2d(new Translation2d(Meter.of(1),
                                                                                                Meter.of(4)),
                                                                              Rotation2d.fromDegrees(0)));
