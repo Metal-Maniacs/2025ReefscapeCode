@@ -32,7 +32,7 @@ public class AutoDriveForward extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_DriveSubsystem.drive(0.1,0, 0, false);
+    m_DriveSubsystem.drive(0.1,0, 0, false, 1);
   }
 
   // Called once the command ends or is interrupted.
