@@ -58,6 +58,8 @@ public final class Constants {
 
     //CLAW SPARK MAX CAN ID
     public static final int kClawCanId = 9;
+    //ELEVATOR TALON CAN ID
+    public static final int kElevatorCanId = 10;
 
     public static final boolean kGyroReversed = false;
   }

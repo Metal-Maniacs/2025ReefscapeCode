@@ -5,28 +5,31 @@
 package frc.robot;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.controller.PIDController;
+/*import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
-import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.math.trajectory.TrajectoryGenerator;*/
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.PS4Controller.Button;
+/*import edu.wpi.first.wpilibj.PS4Controller.Button;
 import frc.robot.Constants.AutoConstants;
-import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.DriveConstants;*/
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.AutoDriveForward;
+import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.Elevator;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.StartEndCommand;
+//import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
+//import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import java.util.List;
+//import java.util.List;
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -37,6 +40,8 @@ import java.util.List;
 public class RobotContainer {
   // The robot's subsystems
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
+  private final Elevator m_elevator = new Elevator();
+  private final Claw m_claw = new Claw();
 
   // The driver's controller
   CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverControllerPort);
@@ -88,6 +93,31 @@ public class RobotContainer {
                 true,
                 0.2),
             m_robotDrive)
+    );
+    //elevator on yaxis and claw on xaxis
+    m_driverController.povRight().whileTrue(
+        new StartEndCommand(
+            () -> m_claw.useClaw(1), 
+            () -> m_claw.useClaw(0), 
+            m_claw)
+    );
+    m_driverController.povLeft().whileTrue(
+        new StartEndCommand(
+            () -> m_claw.useClaw(-1), 
+            () -> m_claw.useClaw(0), 
+            m_claw)
+    );
+    m_driverController.povUp().whileTrue(
+        new StartEndCommand(
+            () -> m_elevator.elevate(1), 
+            () -> m_elevator.elevate(0), 
+            m_claw)
+    );
+    m_driverController.povDown().whileTrue(
+        new StartEndCommand(
+            () -> m_elevator.elevate(-1), 
+            () -> m_elevator.elevate(0), 
+            m_claw)
     );
   }
 
