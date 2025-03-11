@@ -22,6 +22,7 @@ import frc.robot.commands.AutoDriveForward;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Climb;
 import edu.wpi.first.wpilibj2.command.Command;
 //import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -30,6 +31,7 @@ import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 //import java.util.List;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -38,14 +40,18 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  * (including subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+ 
   // The robot's subsystems
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private final Elevator m_elevator = new Elevator();
   private final Claw m_claw = new Claw();
+  private final Climb m_climb = new Climb();
 
   // The driver's controller
   CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverControllerPort);
 
+  // Controller Buttons
+  Trigger xButton = m_driverController.x();
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -95,27 +101,42 @@ public class RobotContainer {
             m_robotDrive)
     );
     //elevator on yaxis and claw on xaxis
+    
+    m_driverController.rightBumper().whileTrue(
+        new StartEndCommand(
+            () -> m_climb.useClimb(.3), 
+            () -> m_climb.useClimb(0), 
+            m_climb)
+    );
+
+    m_driverController.leftBumper().whileTrue(
+        new StartEndCommand(
+            () -> m_climb.useClimb(-.3), 
+            () -> m_climb.useClimb(0), 
+            m_climb)
+    );
+
     m_driverController.povRight().whileTrue(
         new StartEndCommand(
-            () -> m_claw.useClaw(1), 
+            () -> m_claw.useClaw(.3), 
             () -> m_claw.useClaw(0), 
             m_claw)
     );
     m_driverController.povLeft().whileTrue(
         new StartEndCommand(
-            () -> m_claw.useClaw(-1), 
+            () -> m_claw.useClaw(-.3), 
             () -> m_claw.useClaw(0), 
             m_claw)
     );
     m_driverController.povUp().whileTrue(
         new StartEndCommand(
-            () -> m_elevator.elevate(1), 
+            () -> m_elevator.elevate(.3), 
             () -> m_elevator.elevate(0), 
             m_claw)
     );
     m_driverController.povDown().whileTrue(
         new StartEndCommand(
-            () -> m_elevator.elevate(-1), 
+            () -> m_elevator.elevate(-.3), 
             () -> m_elevator.elevate(0), 
             m_claw)
     );

@@ -4,17 +4,19 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj2.command.Command;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+
+//import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants.DriveConstants;
 
 public class Elevator extends SubsystemBase {
 
-  WPI_TalonSRX m_elevatorMotor;
+  private SparkMax m_elevatorMotor;
   public Elevator() {
-    m_elevatorMotor = new WPI_TalonSRX(DriveConstants.kElevatorCanId);
+    m_elevatorMotor = new SparkMax(DriveConstants.kElevatorCanId, MotorType.kBrushed);
   }
 
   public void elevate(double elevationSpeed) {

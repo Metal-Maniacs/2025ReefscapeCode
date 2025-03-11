@@ -55,11 +55,13 @@ public final class Constants {
     public static final int kRearLeftTurningCanId = 3;
     public static final int kFrontRightTurningCanId = 1;
     public static final int kRearRightTurningCanId = 4;
-
+    
+    //DEEP CLIMB SPARK MAX CAN ID
+    public static final int kClimbCanId = 9;
     //CLAW SPARK MAX CAN ID
-    public static final int kClawCanId = 9;
-    //ELEVATOR TALON CAN ID
-    public static final int kElevatorCanId = 10;
+    public static final int kClawCanId = 10;
+    //ELEVATOR SPARK MAX CAN ID
+    public static final int kElevatorCanId = 11;
 
     public static final boolean kGyroReversed = false;
   }

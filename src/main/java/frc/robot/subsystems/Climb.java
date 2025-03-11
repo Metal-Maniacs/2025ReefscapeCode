@@ -13,16 +13,15 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants.DriveConstants;
 
-public class Claw extends SubsystemBase {
+public class Climb extends SubsystemBase {
 
-  private final SparkMax m_clawMotor;
-  public Claw() {
-    m_clawMotor = new SparkMax(DriveConstants.kClawCanId, MotorType.kBrushless);
-    //addChild("m_clawMotor", (Sendable) m_clawMotor);
+  private final SparkMax m_climbMotor;
+  public Climb() {
+    m_climbMotor = new SparkMax(DriveConstants.kClimbCanId, MotorType.kBrushless);
   }
 
-  public void useClaw(double clawSpeed) {
-    m_clawMotor.set(clawSpeed);
+  public void useClimb(double climbSpeed) {
+    m_climbMotor.set(climbSpeed);
   }
 
   @Override
