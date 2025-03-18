@@ -4,6 +4,16 @@
 
 package frc.robot;
 
+import org.opencv.core.Mat;
+import org.opencv.core.Point;
+import org.opencv.core.Scalar;
+import org.opencv.imgproc.Imgproc;
+
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.CvSink;
+import edu.wpi.first.cscore.CvSource;
+import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -15,10 +25,25 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * project.
  */
 public class Robot extends TimedRobot {
+
+  UsbCamera driveCam;
+  UsbCamera clawCam;
+  UsbCamera elevatorCam;
+
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
-  
+
+  Thread m_visionThread;
+
+  /** Called once at the beginning of the robot program. */
+  public Robot() {
+
+    driveCam = CameraServer.startAutomaticCapture(0);
+    clawCam = CameraServer.startAutomaticCapture(1);
+
+
+  }
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -29,6 +54,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+
   }
 
   /**

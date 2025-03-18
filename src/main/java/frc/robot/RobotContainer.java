@@ -19,6 +19,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;*/
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.AutoDriveForward;
+import frc.robot.commands.AutoClawExtake;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Elevator;
@@ -49,6 +50,8 @@ public class RobotContainer {
 
   // The driver's controller
   CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverControllerPort);
+  // The subsystem controller
+  CommandXboxController m_subsystemController = new CommandXboxController(OIConstants.kSubsystemControllerPort);
 
   // Controller Buttons
   Trigger xButton = m_driverController.x();
@@ -100,41 +103,41 @@ public class RobotContainer {
                 0.2),
             m_robotDrive)
     );
-    //elevator on yaxis and claw on xaxis
+    //Subsystems
     
-    m_driverController.rightBumper().whileTrue(
+    m_subsystemController.rightBumper().whileTrue(
         new StartEndCommand(
             () -> m_climb.useClimb(.3), 
             () -> m_climb.useClimb(0), 
             m_climb)
     );
 
-    m_driverController.leftBumper().whileTrue(
+    m_subsystemController.leftBumper().whileTrue(
         new StartEndCommand(
             () -> m_climb.useClimb(-.3), 
             () -> m_climb.useClimb(0), 
             m_climb)
     );
 
-    m_driverController.povRight().whileTrue(
-        new StartEndCommand(
-            () -> m_claw.useClaw(.3), 
-            () -> m_claw.useClaw(0), 
-            m_claw)
-    );
-    m_driverController.povLeft().whileTrue(
+    m_subsystemController.povRight().whileTrue(
         new StartEndCommand(
             () -> m_claw.useClaw(-.3), 
             () -> m_claw.useClaw(0), 
             m_claw)
     );
-    m_driverController.povUp().whileTrue(
+    m_subsystemController.povLeft().whileTrue(
+        new StartEndCommand(
+            () -> m_claw.useClaw(.3), 
+            () -> m_claw.useClaw(0), 
+            m_claw)
+    );
+    m_subsystemController.povUp().whileTrue(
         new StartEndCommand(
             () -> m_elevator.elevate(.3), 
             () -> m_elevator.elevate(0), 
             m_claw)
     );
-    m_driverController.povDown().whileTrue(
+    m_subsystemController.povDown().whileTrue(
         new StartEndCommand(
             () -> m_elevator.elevate(-.3), 
             () -> m_elevator.elevate(0), 
@@ -188,6 +191,8 @@ public class RobotContainer {
     // Run path following command, then stop at the end.
     return swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false));
     */
+    //return new AutoClawExtake(m_claw, 3.0);
     return new AutoDriveForward(m_robotDrive, 5.0);
+    
   }
 }
