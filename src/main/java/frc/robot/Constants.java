@@ -45,12 +45,13 @@ public final class Constants {
     public static final double kBackLeftChassisAngularOffset = Math.PI;
     public static final double kBackRightChassisAngularOffset = Math.PI / 2;
 
-    // SPARK MAX CAN IDs
+    // Neo Vortex CAN IDs (Drive Motors)
     public static final int kFrontLeftDrivingCanId = 6;
     public static final int kRearLeftDrivingCanId = 7;
     public static final int kFrontRightDrivingCanId = 5;
     public static final int kRearRightDrivingCanId = 8;
 
+    // SPARK MAX CAN IDs (Angle Motors)
     public static final int kFrontLeftTurningCanId = 2;
     public static final int kRearLeftTurningCanId = 3;
     public static final int kFrontRightTurningCanId = 1;

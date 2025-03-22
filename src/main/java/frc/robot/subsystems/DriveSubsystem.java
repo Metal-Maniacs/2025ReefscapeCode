@@ -21,15 +21,16 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveSubsystem extends SubsystemBase {
   // Create MAXSwerveModules
-  private final MAXSwerveModule m_frontLeft = new MAXSwerveModule(
-      DriveConstants.kFrontLeftDrivingCanId,
-      DriveConstants.kFrontLeftTurningCanId,
-      DriveConstants.kFrontLeftChassisAngularOffset);
 
   private final MAXSwerveModule m_frontRight = new MAXSwerveModule(
       DriveConstants.kFrontRightDrivingCanId,
       DriveConstants.kFrontRightTurningCanId,
       DriveConstants.kFrontRightChassisAngularOffset);
+
+  private final MAXSwerveModule m_frontLeft = new MAXSwerveModule(
+      DriveConstants.kFrontLeftDrivingCanId,
+      DriveConstants.kFrontLeftTurningCanId,
+      DriveConstants.kFrontLeftChassisAngularOffset);
 
   private final MAXSwerveModule m_rearLeft = new MAXSwerveModule(
       DriveConstants.kRearLeftDrivingCanId,
@@ -116,6 +117,8 @@ public class DriveSubsystem extends SubsystemBase {
    */
   public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative, double speedMult) {
     // Convert the commanded speeds into the correct units for the drivetrain
+    System.out.println("desired rot" + rot);
+    
     double xSpeedDelivered = xSpeed * DriveConstants.kMaxSpeedMetersPerSecond * speedMult;
     double ySpeedDelivered = ySpeed * DriveConstants.kMaxSpeedMetersPerSecond * speedMult;
     double rotDelivered = rot * DriveConstants.kMaxAngularSpeed;
@@ -146,6 +149,38 @@ public class DriveSubsystem extends SubsystemBase {
     m_rearLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
     m_rearRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
   }
+
+  public void setForward() {
+    m_frontLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
+    m_frontRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
+    m_rearLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
+    m_rearRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
+  }
+
+  public void set90Deg() {
+    m_frontLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(90)));
+    m_frontRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(90)));
+    m_rearLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(90)));
+    m_rearRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(90)));
+  }
+
+  public void set45Deg(int invert) {
+    m_frontLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45*invert)));
+    m_frontRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45*invert)));
+    m_rearLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45*invert)));
+    m_rearRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45*invert)));
+  }
+/* 
+  public void setInit() {
+
+    m_frontLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(90)));
+    m_frontRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(90)));
+    m_rearLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(90)));
+    m_rearRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(90)));
+
+
+  }
+*/
 
   /**
    * Sets the swerve ModuleStates.

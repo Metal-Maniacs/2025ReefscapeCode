@@ -13,11 +13,13 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.cscore.VideoSink;
 import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.RobotContainer;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -26,9 +28,12 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot {
 
+  CommandXboxController controller;
   UsbCamera driveCam;
   UsbCamera clawCam;
   UsbCamera elevatorCam;
+
+  VideoSink server;
 
   private Command m_autonomousCommand;
 
@@ -41,7 +46,11 @@ public class Robot extends TimedRobot {
 
     driveCam = CameraServer.startAutomaticCapture(0);
     clawCam = CameraServer.startAutomaticCapture(1);
+    elevatorCam = CameraServer.startAutomaticCapture(2);
 
+    driveCam.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+    clawCam.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+    elevatorCam.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
 
   }
 
@@ -111,11 +120,22 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    
   }
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+      if (m_robotContainer.m_subsystemController.x() != null) {
+          System.out.println("Setting drive cam");
+          server.setSource(driveCam);
+      } else {
+          System.out.println("Setting elevator cam");
+          server.setSource(elevatorCam);
+      }
+
+
+  }
 
   @Override
   public void testInit() {

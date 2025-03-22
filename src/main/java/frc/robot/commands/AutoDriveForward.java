@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj.Timer;
+import frc.robot.subsystems.Claw;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class AutoDriveForward extends Command {
@@ -14,8 +15,11 @@ public class AutoDriveForward extends Command {
   private DriveSubsystem m_DriveSubsystem;
   private double timeToRun;
   private double initTime;
+  private Claw claw_motor;
 
-  public AutoDriveForward(DriveSubsystem mainDriveSubsystem, double time) {
+  public AutoDriveForward(DriveSubsystem mainDriveSubsystem, Claw m_claw, double time) {
+    
+    claw_motor = m_claw;
     m_DriveSubsystem = mainDriveSubsystem;
     timeToRun = time;
     initTime = Timer.getTimestamp();
@@ -32,7 +36,14 @@ public class AutoDriveForward extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_DriveSubsystem.drive(0.1,0, 0, false, 1);
+    if (Timer.getTimestamp() - initTime <= 1){
+      m_DriveSubsystem.drive(1,0, 0, false, .35);
+    }
+    else{
+      m_DriveSubsystem.drive(0,0, 0, false, 0);
+      claw_motor.useClaw(-0.3); 
+    }
+    
   }
 
   // Called once the command ends or is interrupted.

@@ -1,3 +1,4 @@
+
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
@@ -19,7 +20,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;*/
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.AutoDriveForward;
-import frc.robot.commands.AutoClawExtake;
+import frc.robot.commands.LeftAuto;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Elevator;
@@ -28,6 +29,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 //import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 //import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -104,7 +106,13 @@ public class RobotContainer {
             m_robotDrive)
     );
     //Subsystems
-    
+    m_driverController.leftBumper().whileTrue(
+        new StartEndCommand(
+            () -> m_robotDrive.set90Deg(), 
+            () -> m_robotDrive.set90Deg(), 
+            m_robotDrive)
+    );
+
     m_subsystemController.rightBumper().whileTrue(
         new StartEndCommand(
             () -> m_climb.useClimb(.3), 
@@ -118,28 +126,27 @@ public class RobotContainer {
             () -> m_climb.useClimb(0), 
             m_climb)
     );
-
     m_subsystemController.povRight().whileTrue(
         new StartEndCommand(
-            () -> m_claw.useClaw(-.3), 
+            () -> m_claw.useClaw(-.6), 
             () -> m_claw.useClaw(0), 
             m_claw)
     );
     m_subsystemController.povLeft().whileTrue(
         new StartEndCommand(
-            () -> m_claw.useClaw(.3), 
+            () -> m_claw.useClaw(.6), 
             () -> m_claw.useClaw(0), 
             m_claw)
     );
     m_subsystemController.povUp().whileTrue(
         new StartEndCommand(
-            () -> m_elevator.elevate(.3), 
+            () -> m_elevator.elevate(.8), 
             () -> m_elevator.elevate(0), 
             m_claw)
     );
     m_subsystemController.povDown().whileTrue(
         new StartEndCommand(
-            () -> m_elevator.elevate(-.3), 
+            () -> m_elevator.elevate(-.8), 
             () -> m_elevator.elevate(0), 
             m_claw)
     );
@@ -191,8 +198,9 @@ public class RobotContainer {
     // Run path following command, then stop at the end.
     return swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false));
     */
-    //return new AutoClawExtake(m_claw, 3.0);
-    return new AutoDriveForward(m_robotDrive, 5.0);
-    
+    //return new RightAuto(m_robotDrive, m_claw, 5);
+   return new LeftAuto(m_robotDrive, m_claw, 20);
+   //return new AutoDriveForward(m_robotDrive, m_claw, 5);
+    //return null;
   }
 }
