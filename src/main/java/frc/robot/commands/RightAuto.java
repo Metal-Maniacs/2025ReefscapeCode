@@ -5,7 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-
+//import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.DriveSubsystem;
 
 import org.opencv.core.Mat;
@@ -14,15 +14,15 @@ import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.DriveSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class LeftAuto extends Command {
+public class RightAuto extends Command {
   /** Creates a new AutoDriveForward. */
+ //private Claw motor;
   private DriveSubsystem m_DriveSubsystem; 
   private double timeToRun;
   private double initTime;
 
 
-  public LeftAuto(DriveSubsystem mainDriveSubsystem, double time) {
-    
+  public RightAuto(DriveSubsystem mainDriveSubsystem, double time) {
     timeToRun = time;
     initTime = Timer.getTimestamp();
     m_DriveSubsystem = mainDriveSubsystem;
@@ -36,29 +36,46 @@ public class LeftAuto extends Command {
 
   // Called every time the scheduler runs  while the command is scheduled.
   @Override
+  /* 
   public void execute() {
-    System.out.println(Timer.getTimestamp() - initTime);
-    while (Timer.getTimestamp() - initTime <= 5){
-      System.out.println(Timer.getTimestamp() - initTime);
-      m_DriveSubsystem.drive(1,0, 0, false, .1);
+    while (Timer.getTimestamp() - initTime > .004 && Timer.getTimestamp() - initTime < 4.998){
+      m_DriveSubsystem.runWheelMotors(.26868);
     }
-
-    while(Timer.getTimestamp() - initTime > 5 && (Timer.getTimestamp() - initTime <= 10)){
-      System.out.println(Timer.getTimestamp() - initTime);
-      m_DriveSubsystem.drive(0,0, .1, false, .13);
+    if (Timer.getTimestamp() - initTime <= 5.002 && (Timer.getTimestamp() - initTime >= 4.998)){
+      m_DriveSubsystem.setForward();
+    }
+    while(Timer.getTimestamp() - initTime > 5.002 && (Timer.getTimestamp() - initTime <= 10)){
+      m_DriveSubsystem.runWheelMotors(.26868);
       }
     while(Timer.getTimestamp() - initTime > 10 && (Timer.getTimestamp() - initTime <= 15)){
-      System.out.println(Timer.getTimestamp() - initTime);
-      m_DriveSubsystem.drive(1,0, 0, false, .16);
-
+      m_DriveSubsystem.runWheelMotors(0);
+      //motor.useClaw(.6);
     }
     if (Timer.getTimestamp() - initTime >= 15){
+      //motor.useClaw(0);
+    }
+  
+  }
+    */
 
+  public void execute() {
+    while (Timer.getTimestamp() - initTime < 2){
+      m_DriveSubsystem.drive(1,0, 0, false, .075);
     }
 
+    while (Timer.getTimestamp() - initTime >= 2 && (Timer.getTimestamp() - initTime <= 2.5)){
+      m_DriveSubsystem.drive(0,0, .22, false, 1);
+    }
+
+    while(Timer.getTimestamp() - initTime > 2.5 && (Timer.getTimestamp() - initTime <= 4.5)){
+      m_DriveSubsystem.drive(1,0, 0, false, 0.15);    
+    }
+
+    //if (Timer.getTimestamp() - initTime >= 6.5){
+      //m_DriveSubsystem.runWheelMotors(0); 
+    //}
+
   }
-    
-  
 
   // Called once the command ends or is interrupted.
   @Override
@@ -68,9 +85,8 @@ public class LeftAuto extends Command {
   @Override
   public boolean isFinished() {
     System.out.println(Timer.getTimestamp() - initTime);
-    
-    if (Timer.getTimestamp() - initTime >= timeToRun){
 
+    if (Timer.getTimestamp() - initTime >= timeToRun){
       return true;
     }
     else {
@@ -81,4 +97,5 @@ public class LeftAuto extends Command {
   private double feetToSpeed(double feet) {
     return feet / 24.93;
   }
+
 }

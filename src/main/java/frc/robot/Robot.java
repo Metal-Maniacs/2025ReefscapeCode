@@ -15,6 +15,7 @@ import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cscore.VideoSink;
 import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -39,18 +40,21 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
+  DigitalInput elevatorStop;
+
+
   Thread m_visionThread;
 
   /** Called once at the beginning of the robot program. */
   public Robot() {
 
-    driveCam = CameraServer.startAutomaticCapture(0);
-    clawCam = CameraServer.startAutomaticCapture(1);
-    elevatorCam = CameraServer.startAutomaticCapture(2);
+    //driveCam = CameraServer.startAutomaticCapture(0);
+    //clawCam = CameraServer.startAutomaticCapture(0);
+    //elevatorCam = CameraServer.startAutomaticCapture(2);
 
-    driveCam.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
-    clawCam.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
-    elevatorCam.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+   //driveCam.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+    //clawCam.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+    //elevatorCam.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
 
   }
 
@@ -63,6 +67,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    elevatorStop = new DigitalInput(0);
 
   }
 
@@ -126,14 +131,16 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-      if (m_robotContainer.m_subsystemController.x() != null) {
-          System.out.println("Setting drive cam");
-          server.setSource(driveCam);
-      } else {
-          System.out.println("Setting elevator cam");
-          server.setSource(elevatorCam);
-      }
+  
+    if (elevatorStop.get()){
+      m_robotContainer.disableDrive();
+      //m_robotContainer.m_robotDrive.drive(0,0, .5, false,0);
+    }
 
+    if (!elevatorStop.get()){
+      m_robotContainer.enableDrive();
+      //m_robotContainer.m_robotDrive.drive(0,0, .5, false,0);
+    }
 
   }
 

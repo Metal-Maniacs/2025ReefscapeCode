@@ -115,13 +115,13 @@ public class DriveSubsystem extends SubsystemBase {
    * @param fieldRelative Whether the provided x and y speeds are relative to the
    *                      field.
    */
-  public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative, double speedMult) {
+  public void drive(double xSpeed, double ySpeed, double rotSpeed, boolean fieldRelative, double speedMult) {
     // Convert the commanded speeds into the correct units for the drivetrain
-    System.out.println("desired rot" + rot);
+    //System.out.println("desired rot" + rot);
     
     double xSpeedDelivered = xSpeed * DriveConstants.kMaxSpeedMetersPerSecond * speedMult;
     double ySpeedDelivered = ySpeed * DriveConstants.kMaxSpeedMetersPerSecond * speedMult;
-    double rotDelivered = rot * DriveConstants.kMaxAngularSpeed;
+    double rotDelivered = rotSpeed * DriveConstants.kMaxAngularSpeed;
 
     var swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(
         fieldRelative
@@ -170,6 +170,20 @@ public class DriveSubsystem extends SubsystemBase {
     m_rearLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45*invert)));
     m_rearRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45*invert)));
   }
+
+  //Unique from the Drive function
+  //Allows wheel motors to run without altering the swerve modules rotational state
+  public void runWheelMotors(double speed){
+    m_frontRight.run(speed);
+    m_frontLeft.run(-speed);
+    m_rearRight.run(-speed);
+    m_rearLeft.run(speed);
+  }
+
+  public ChassisSpeeds wheeliecool(double x, double y, double rot){
+    return new ChassisSpeeds(x, y, rot);
+  }
+
 /* 
   public void setInit() {
 

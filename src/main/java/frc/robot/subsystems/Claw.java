@@ -8,7 +8,7 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.util.sendable.Sendable;
-//import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants.DriveConstants;
@@ -18,7 +18,7 @@ public class Claw extends SubsystemBase {
   private final SparkMax m_clawMotor;
   public Claw() {
     m_clawMotor = new SparkMax(DriveConstants.kClawCanId, MotorType.kBrushless);
-    //addChild("m_clawMotor", (Sendable) m_clawMotor);
+    addChild("m_clawMotor", (Sendable) m_clawMotor);
   }
 
   public void useClaw(double clawSpeed) {
