@@ -24,10 +24,10 @@ import frc.robot.commands.AutoDriveForward;
 import frc.robot.commands.LeftAuto;
 import frc.robot.commands.RightAuto;
 //import frc.robot.commands.MiddleAuto;
-//import frc.robot.subsystems.Claw;
+import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.DriveSubsystem;
-//import frc.robot.subsystems.Elevator;
-import frc.robot.subsystems.Climb;
+import frc.robot.subsystems.Elevator;
+//import frc.robot.subsystems.Climb;
 import edu.wpi.first.wpilibj2.command.Command;
 //import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -50,16 +50,11 @@ public class RobotContainer {
  
   // The robot's subsystems
   final DriveSubsystem m_robotDrive = new DriveSubsystem();
-  //private final Elevator m_elevator = new Elevator();
-  //private final Claw m_claw = new Claw();
-  private final Climb m_climb = new Climb();
+  private final Elevator m_elevator = new Elevator();
+  private final Claw m_claw = new Claw();
+  //private final Climb m_climb = new Climb();
 
    //DigitalInput elevatorStop;
-
-
-
-
-  public boolean limit_pressed = true;
   private double climbmult = 1;
 
   // The driver's controller
@@ -70,15 +65,22 @@ public class RobotContainer {
   // Controller Buttons
   Trigger xButton = m_driverController.x();
 
- int defaultCommandSpeed = 1;
+ int elevateSpeedTop = 1;
+ int elevateSpeedBottom = -1;
 
-  public void disableDrive(){
-    defaultCommandSpeed = 0;
+  public void disableElevatorUp(){
+    elevateSpeedTop = 0;
   }
-  public void enableDrive(){
-    defaultCommandSpeed = 1;
+  public void enableElevatorUp(){
+    elevateSpeedTop = 1;
   }
 
+  public void disableElevatorDown(){
+    elevateSpeedBottom = 0;
+  }
+  public void enableElevatorDown(){
+    elevateSpeedBottom = -1;
+  }
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -101,7 +103,7 @@ public class RobotContainer {
                     -MathUtil.applyDeadband(m_driverController.getLeftX(), OIConstants.kDriveDeadband),
                     -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDriveDeadband),
                     true,
-                    defaultCommandSpeed),
+                    1),
                 m_robotDrive));
     }
 //  }
@@ -167,7 +169,7 @@ public class RobotContainer {
     );
 
   
-    m_subsystemController.x().whileTrue(
+    /*m_subsystemController.x().whileTrue(
         new StartEndCommand(
             () -> climbmult = 2, 
             () -> climbmult = 1,
@@ -203,8 +205,8 @@ public class RobotContainer {
             m_climb)
     );
   }
-
-   /*  m_subsystemController.povRight().whileTrue(
+*/
+     m_subsystemController.povRight().whileTrue(
         new StartEndCommand(
             () -> m_claw.useClaw(-1), 
             () -> m_claw.useClaw(0), 
@@ -213,18 +215,18 @@ public class RobotContainer {
     m_subsystemController.povLeft().whileTrue(
         new StartEndCommand(
             () -> m_claw.useClaw(.8), 
-            () -> m_claw.useClaw(0),/ 
+            () -> m_claw.useClaw(0),
             m_claw)
     );
     m_subsystemController.povUp().whileTrue(
         new StartEndCommand(
-            () -> m_elevator.elevate(1), 
+            () -> m_elevator.elevate(elevateSpeedTop), 
             () -> m_elevator.elevate(0), 
             m_claw)
     );
     m_subsystemController.povDown().whileTrue(
         new StartEndCommand(
-            () -> m_elevator.elevate(-1), 
+            () -> m_elevator.elevate(elevateSpeedBottom), 
             () -> m_elevator.elevate(0), 
             m_claw)
     );

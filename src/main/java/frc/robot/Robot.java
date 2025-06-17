@@ -40,7 +40,9 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
-  DigitalInput elevatorStop;
+  DigitalInput elevatorStopTop;
+  DigitalInput elevatorStopBottom;
+
 
 
   Thread m_visionThread;
@@ -67,7 +69,8 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    elevatorStop = new DigitalInput(0);
+    elevatorStopTop = new DigitalInput(1);
+    elevatorStopBottom = new DigitalInput(0);
 
   }
 
@@ -132,16 +135,21 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
   
-    if (elevatorStop.get()){
-      m_robotContainer.disableDrive();
-      //m_robotContainer.m_robotDrive.drive(0,0, .5, false,0);
+    //Disables upwards elevator movement
+    if (elevatorStopTop.get()){
+      m_robotContainer.disableElevatorUp();
+    }
+    if (!elevatorStopTop.get()){
+      m_robotContainer.enableElevatorUp();
     }
 
-    if (!elevatorStop.get()){
-      m_robotContainer.enableDrive();
-      //m_robotContainer.m_robotDrive.drive(0,0, .5, false,0);
+    //Disables downwards elevator movement
+    if (elevatorStopBottom.get()){
+      m_robotContainer.disableElevatorDown();
     }
-
+    if (!elevatorStopBottom.get()){
+      m_robotContainer.enableElevatorDown();
+    }
   }
 
   @Override
