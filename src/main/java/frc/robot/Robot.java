@@ -13,11 +13,14 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.cscore.VideoSink;
 import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.RobotContainer;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -26,22 +29,34 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot {
 
+  CommandXboxController controller;
   UsbCamera driveCam;
   UsbCamera clawCam;
   UsbCamera elevatorCam;
 
+  VideoSink server;
+
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
+
+  DigitalInput elevatorStopTop;
+  DigitalInput elevatorStopBottom;
+
+
 
   Thread m_visionThread;
 
   /** Called once at the beginning of the robot program. */
   public Robot() {
 
-    driveCam = CameraServer.startAutomaticCapture(0);
-    clawCam = CameraServer.startAutomaticCapture(1);
+    //driveCam = CameraServer.startAutomaticCapture(0);
+    //clawCam = CameraServer.startAutomaticCapture(0);
+    //elevatorCam = CameraServer.startAutomaticCapture(2);
 
+   //driveCam.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+    //clawCam.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+    //elevatorCam.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
 
   }
 
@@ -54,6 +69,8 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    elevatorStopTop = new DigitalInput(1);
+    elevatorStopBottom = new DigitalInput(0);
 
   }
 
@@ -111,11 +128,29 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    
   }
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+  
+    //Disables upwards elevator movement
+    if (elevatorStopTop.get()){
+      m_robotContainer.disableElevatorUp();
+    }
+    if (!elevatorStopTop.get()){
+      m_robotContainer.enableElevatorUp();
+    }
+
+    //Disables downwards elevator movement
+    if (elevatorStopBottom.get()){
+      m_robotContainer.disableElevatorDown();
+    }
+    if (!elevatorStopBottom.get()){
+      m_robotContainer.enableElevatorDown();
+    }
+  }
 
   @Override
   public void testInit() {

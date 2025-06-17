@@ -66,6 +66,11 @@ public class MAXSwerveModule {
    *
    * @return The current state of the module.
    */
+
+  public void run(double speed){
+    m_drivingSpark.set(speed);
+  }
+
   public SwerveModuleState getState() {
     // Apply chassis angular offset to the encoder position to get the position
     // relative to the chassis.

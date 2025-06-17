@@ -5,42 +5,60 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+
 import frc.robot.subsystems.DriveSubsystem;
+
+import org.opencv.core.Mat;
+
 import edu.wpi.first.wpilibj.Timer;
+import frc.robot.subsystems.DriveSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class AutoDriveForward extends Command {
+public class LeftAuto extends Command {
   /** Creates a new AutoDriveForward. */
-  private DriveSubsystem m_DriveSubsystem;
+  private DriveSubsystem m_DriveSubsystem; 
   private double timeToRun;
   private double initTime;
 
-  public AutoDriveForward(DriveSubsystem mainDriveSubsystem, double time) {
+
+  public LeftAuto(DriveSubsystem mainDriveSubsystem, double time) {
     
-    m_DriveSubsystem = mainDriveSubsystem;
     timeToRun = time;
     initTime = Timer.getTimestamp();
+    m_DriveSubsystem = mainDriveSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_DriveSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
+  // Called every time the scheduler runs  while the command is scheduled.
   @Override
   public void execute() {
-    if (Timer.getTimestamp() - initTime <= .25){
-      m_DriveSubsystem.drive(0,0, .5, false, 1);
+    System.out.println(Timer.getTimestamp() - initTime);
+    while (Timer.getTimestamp() - initTime <= 5){
+      System.out.println(Timer.getTimestamp() - initTime);
+      m_DriveSubsystem.drive(1,0, 0, false, .1);
     }
-    else{
-      m_DriveSubsystem.drive(0,0, 0, false, 0);
+
+    while(Timer.getTimestamp() - initTime > 5 && (Timer.getTimestamp() - initTime <= 10)){
+      System.out.println(Timer.getTimestamp() - initTime);
+      m_DriveSubsystem.drive(0,0, .1, false, .13);
+      }
+    while(Timer.getTimestamp() - initTime > 10 && (Timer.getTimestamp() - initTime <= 15)){
+      System.out.println(Timer.getTimestamp() - initTime);
+      m_DriveSubsystem.drive(1,0, 0, false, .16);
+
     }
-    
+    if (Timer.getTimestamp() - initTime >= 15){
+
+    }
+
   }
+    
+  
 
   // Called once the command ends or is interrupted.
   @Override
@@ -50,12 +68,17 @@ public class AutoDriveForward extends Command {
   @Override
   public boolean isFinished() {
     System.out.println(Timer.getTimestamp() - initTime);
-    //
+    
     if (Timer.getTimestamp() - initTime >= timeToRun){
+
       return true;
     }
     else {
       return false;
     }
+  }
+
+  private double feetToSpeed(double feet) {
+    return feet / 24.93;
   }
 }
