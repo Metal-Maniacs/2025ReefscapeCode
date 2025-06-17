@@ -69,6 +69,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    
     elevatorStopTop = new DigitalInput(1);
     elevatorStopBottom = new DigitalInput(0);
 
@@ -150,6 +151,7 @@ public class Robot extends TimedRobot {
     if (!elevatorStopBottom.get()){
       m_robotContainer.enableElevatorDown();
     }
+      
   }
 
   @Override

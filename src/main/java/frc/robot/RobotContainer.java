@@ -65,21 +65,22 @@ public class RobotContainer {
   // Controller Buttons
   Trigger xButton = m_driverController.x();
 
- int elevateSpeedTop = 1;
- int elevateSpeedBottom = -1;
+ double elevateSpeedTop = -.75;
+ double elevateSpeedBottom = .75;
 
+ 
   public void disableElevatorUp(){
     elevateSpeedTop = 0;
   }
   public void enableElevatorUp(){
-    elevateSpeedTop = 1;
+    elevateSpeedTop = -.75;
   }
 
   public void disableElevatorDown(){
     elevateSpeedBottom = 0;
   }
   public void enableElevatorDown(){
-    elevateSpeedBottom = -1;
+    elevateSpeedBottom = .75;
   }
 
   /**
@@ -206,6 +207,7 @@ public class RobotContainer {
     );
   }
 */
+/* 
      m_subsystemController.povRight().whileTrue(
         new StartEndCommand(
             () -> m_claw.useClaw(-1), 
@@ -218,6 +220,7 @@ public class RobotContainer {
             () -> m_claw.useClaw(0),
             m_claw)
     );
+    */
     m_subsystemController.povUp().whileTrue(
         new StartEndCommand(
             () -> m_elevator.elevate(elevateSpeedTop), 
@@ -278,8 +281,8 @@ public class RobotContainer {
     // Run path following command, then stop at the end.
     return swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false));
     */
-    //return new LeftAuto(m_robotDrive, 15);
-    return new RightAuto(m_robotDrive, 20);
+    return new LeftAuto(m_robotDrive, 15);
+    //return new RightAuto(m_robotDrive, 15);
     //return new AutoDriveForward(m_robotDrive, 15);
     //return new MiddleAuto(m_robotDrive, 15);
     //return null;
