@@ -4,3 +4,9 @@ Let us go
 Let us gooooo
 Let us be the SALAD
 
+TASKS...
+
+1. Change front of robot
+2. Move signal light
+3. Uncomment Claw Code
+4. Test Autos on field

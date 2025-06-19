@@ -161,32 +161,45 @@ public class Robot extends TimedRobot {
     if (elevatorStopBottom.get() == false){
       //m_robotContainer.m_elevator.enableDown();
       bottomLimitPressed = false;
-    }
-     */
+    }*/
+
+  
     //Handles elevator controller bindings
 
-    if (topLimitPressed == false){
-      System.out.println(m_robotContainer.m_subsystemController.povUp().getAsBoolean());
-      System.err.println("ASIAN");
+
+    if (elevatorStopTop.get() == false){
       if (m_robotContainer.m_subsystemController.povUp().getAsBoolean() == true){
-            m_robotContainer.m_elevator.elevate(-.75);
-      } 
+            m_robotContainer.m_elevator.elevateUp(-1);
+      }
+      if (m_robotContainer.m_subsystemController.povUp().getAsBoolean() == false){
+            m_robotContainer.m_elevator.elevateUp(0);
+      }
+    if (elevatorStopTop.get() == true){
+      m_robotContainer.m_elevator.elevateUp(0);
+      }
     }
 
-
-    if (bottomLimitPressed == false){
+    if (elevatorStopBottom.get() == false){
       if (m_robotContainer.m_subsystemController.povDown().getAsBoolean() == true){
-        m_robotContainer.m_elevator.elevate(.75);  
+            m_robotContainer.m_elevator.elevateDown(1);
+      }
+      if (m_robotContainer.m_subsystemController.povDown().getAsBoolean() == false){
+            m_robotContainer.m_elevator.elevateDown(0);
+      } 
+    if (elevatorStopBottom.get() == true){
+      m_robotContainer.m_elevator.elevateDown(0);
       }
     }
-
-    if (bottomLimitPressed == false){
-      if (m_robotContainer.m_subsystemController.povDown().getAsBoolean() == false && m_robotContainer.m_subsystemController.povUp().getAsBoolean() == false){
-        m_robotContainer.m_elevator.elevate(0);  
-      }
-    }
-
   }
+
+/*     if (bottomLimitPressed == false){
+      if (m_robotContainer.m_subsystemController.povDown().getAsBoolean() == false && m_robotContainer.m_subsystemController.povUp().getAsBoolean() == false){
+        m_robotContainer.m_elevator.elevateDown(0);  
+      }
+    }
+      */
+
+  
 
   @Override
   public void testInit() {

@@ -22,10 +22,11 @@ public class RightAuto extends Command {
   private double initTime;
 
 
-  public RightAuto(DriveSubsystem mainDriveSubsystem, double time) {
+  public RightAuto(DriveSubsystem mainDriveSubsystem, double time/* , Claw scorer*/) {
     timeToRun = time;
     initTime = Timer.getTimestamp();
     m_DriveSubsystem = mainDriveSubsystem;
+    //motor = scorer;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -71,6 +72,10 @@ public class RightAuto extends Command {
       m_DriveSubsystem.drive(1,0, 0, false, 0.15);    
     }
 
+    /*while(Timer.getTimestamp() - initTime > 4.5 && (Timer.getTimestamp() - initTime <= 5.5)){
+      motor.useClaw(.75);
+      */
+      
     //if (Timer.getTimestamp() - initTime >= 6.5){
       //m_DriveSubsystem.runWheelMotors(0); 
     //}

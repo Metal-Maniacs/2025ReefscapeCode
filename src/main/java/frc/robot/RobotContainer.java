@@ -223,7 +223,7 @@ public class RobotContainer {
 
 //i wanna cry
      
-    
+ /*  
     m_subsystemController.povUp().whileTrue(
 
         new StartEndCommand(
@@ -233,6 +233,9 @@ public class RobotContainer {
 
 //ow fuck
 //magic magic please work
+//i hate this
+//please work
+//move signal light
 
     );
     m_subsystemController.povDown().whileTrue(
@@ -242,7 +245,7 @@ public class RobotContainer {
             () -> m_elevator.elevate(0), 
             m_elevator)
     );
-    
+*/    
 
 
 

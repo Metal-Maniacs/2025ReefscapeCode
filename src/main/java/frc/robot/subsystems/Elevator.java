@@ -35,11 +35,12 @@ public class Elevator extends SubsystemBase {
     ElevatorMultDown = 1;
   }
 
-
+/*
   public void elevate(double speed){
     m_elevatorMotor.set(speed);
   }
-/* 
+    */
+
   public void elevateUp(double elevationSpeed) {
     m_elevatorMotor.set(elevationSpeed*ElevatorMultUp);
   }
@@ -47,7 +48,7 @@ public class Elevator extends SubsystemBase {
   public void elevateDown(double elevationSpeed) {
     m_elevatorMotor.set(elevationSpeed*ElevatorMultDown);
   }
-    */
+  
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
