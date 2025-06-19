@@ -38,6 +38,19 @@ public class LeftAuto extends Command {
   @Override
   public void execute() {
     System.out.println(Timer.getTimestamp() - initTime);
+
+      while (Timer.getTimestamp() - initTime < 2){
+        m_DriveSubsystem.drive(1,0, 0, false, .075);
+      }
+  
+      while (Timer.getTimestamp() - initTime >= 2 && (Timer.getTimestamp() - initTime <= 2.5)){
+        m_DriveSubsystem.drive(0,0, -.22, false, 1);
+      }
+  
+      while(Timer.getTimestamp() - initTime > 2.5 && (Timer.getTimestamp() - initTime <= 4.5)){
+        m_DriveSubsystem.drive(1,0, 0, false, 0.15);    
+      }
+    /*
     while (Timer.getTimestamp() - initTime <= 5){
       System.out.println(Timer.getTimestamp() - initTime);
       m_DriveSubsystem.drive(1,0, 0, false, .1);
@@ -55,6 +68,8 @@ public class LeftAuto extends Command {
     if (Timer.getTimestamp() - initTime >= 15){
 
     }
+*/
+  
 
   }
     

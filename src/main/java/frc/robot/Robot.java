@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.RobotContainer;
 /**
@@ -37,13 +38,13 @@ public class Robot extends TimedRobot {
   VideoSink server;
 
   private Command m_autonomousCommand;
-
   private RobotContainer m_robotContainer;
 
-  DigitalInput elevatorStopTop;
-  DigitalInput elevatorStopBottom;
+  public DigitalInput elevatorStopTop;
+  public DigitalInput elevatorStopBottom;
 
-
+  boolean topLimitPressed;
+  boolean bottomLimitPressed;
 
   Thread m_visionThread;
 
@@ -72,6 +73,9 @@ public class Robot extends TimedRobot {
     
     elevatorStopTop = new DigitalInput(1);
     elevatorStopBottom = new DigitalInput(0);
+
+    topLimitPressed = false;
+    bottomLimitPressed = false;
 
   }
 
@@ -136,22 +140,52 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
   
+  System.out.println("Bottom Speed: " + m_robotContainer.elevateSpeedBottom);
+  System.out.println("Top speed: " + m_robotContainer.elevateSpeedTop);
+  /* 
     //Disables upwards elevator movement
-    if (elevatorStopTop.get()){
-      m_robotContainer.disableElevatorUp();
+    if (elevatorStopTop.get() == true){
+      //m_robotContainer.m_elevator.disableUp();
+      topLimitPressed = true;
     }
-    if (!elevatorStopTop.get()){
-      m_robotContainer.enableElevatorUp();
+    if (elevatorStopTop.get() == false){
+      //m_robotContainer.m_elevator.enableUp();
+      topLimitPressed = false;
     }
 
     //Disables downwards elevator movement
-    if (elevatorStopBottom.get()){
-      m_robotContainer.disableElevatorDown();
+    if (elevatorStopBottom.get() == true){
+      //m_robotContainer.m_elevator.disableDown();
+      bottomLimitPressed = true;
     }
-    if (!elevatorStopBottom.get()){
-      m_robotContainer.enableElevatorDown();
+    if (elevatorStopBottom.get() == false){
+      //m_robotContainer.m_elevator.enableDown();
+      bottomLimitPressed = false;
     }
-      
+     */
+    //Handles elevator controller bindings
+
+    if (topLimitPressed == false){
+      System.out.println(m_robotContainer.m_subsystemController.povUp().getAsBoolean());
+      System.err.println("ASIAN");
+      if (m_robotContainer.m_subsystemController.povUp().getAsBoolean() == true){
+            m_robotContainer.m_elevator.elevate(-.75);
+      } 
+    }
+
+
+    if (bottomLimitPressed == false){
+      if (m_robotContainer.m_subsystemController.povDown().getAsBoolean() == true){
+        m_robotContainer.m_elevator.elevate(.75);  
+      }
+    }
+
+    if (bottomLimitPressed == false){
+      if (m_robotContainer.m_subsystemController.povDown().getAsBoolean() == false && m_robotContainer.m_subsystemController.povUp().getAsBoolean() == false){
+        m_robotContainer.m_elevator.elevate(0);  
+      }
+    }
+
   }
 
   @Override

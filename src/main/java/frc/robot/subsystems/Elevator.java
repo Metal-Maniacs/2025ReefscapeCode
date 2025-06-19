@@ -14,15 +14,40 @@ import frc.robot.Constants.DriveConstants;
 
 public class Elevator extends SubsystemBase {
 
+  double ElevatorMultUp = 1;
+  double ElevatorMultDown = 1;
+
   private SparkMax m_elevatorMotor;
   public Elevator() {
     m_elevatorMotor = new SparkMax(DriveConstants.kElevatorCanId, MotorType.kBrushed);
   }
 
-  public void elevate(double elevationSpeed) {
-    m_elevatorMotor.set(elevationSpeed);
+  public void disableUp(){
+    ElevatorMultUp = 0;
+  }
+  public void enableUp(){
+    ElevatorMultUp = 1;
+  }
+  public void disableDown(){
+    ElevatorMultDown = 0;
+  }
+  public void enableDown(){
+    ElevatorMultDown = 1;
+  }
+
+
+  public void elevate(double speed){
+    m_elevatorMotor.set(speed);
+  }
+/* 
+  public void elevateUp(double elevationSpeed) {
+    m_elevatorMotor.set(elevationSpeed*ElevatorMultUp);
   }
   
+  public void elevateDown(double elevationSpeed) {
+    m_elevatorMotor.set(elevationSpeed*ElevatorMultDown);
+  }
+    */
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

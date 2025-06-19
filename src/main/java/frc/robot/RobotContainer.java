@@ -50,7 +50,7 @@ public class RobotContainer {
  
   // The robot's subsystems
   final DriveSubsystem m_robotDrive = new DriveSubsystem();
-  private final Elevator m_elevator = new Elevator();
+  public final Elevator m_elevator = new Elevator();
   private final Claw m_claw = new Claw();
   //private final Climb m_climb = new Climb();
 
@@ -94,7 +94,6 @@ public class RobotContainer {
 
     // Configure default commands
 
-  //  if (limit_pressed == false){
         m_robotDrive.setDefaultCommand(
             // The left stick controls translation of the robot.
             // Turning is controlled by the X axis of the right stick.
@@ -107,7 +106,7 @@ public class RobotContainer {
                     1),
                 m_robotDrive));
     }
-//  }
+
 
   /**
    * Use this method to define your button->command mappings. Buttons can be
@@ -221,18 +220,36 @@ public class RobotContainer {
             m_claw)
     );
     */
+
+//i wanna cry
+     
+    
     m_subsystemController.povUp().whileTrue(
+
         new StartEndCommand(
             () -> m_elevator.elevate(elevateSpeedTop), 
             () -> m_elevator.elevate(0), 
-            m_claw)
+            m_elevator)
+
+//ow fuck
+//magic magic please work
+
     );
     m_subsystemController.povDown().whileTrue(
+
         new StartEndCommand(
             () -> m_elevator.elevate(elevateSpeedBottom), 
             () -> m_elevator.elevate(0), 
-            m_claw)
+            m_elevator)
     );
+    
+
+
+
+
+
+
+
   }
 
   /**
