@@ -221,6 +221,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   //Unique from the Drive function
   //Allows wheel motors to run without altering the swerve modules rotational state
+  //Highkey this sucks cause it can cause wheels to run in opposite directions depending on their rotational state
   public void runWheelMotors(double speed){
     m_frontRight.run(speed);
     m_frontLeft.run(-speed);
@@ -228,6 +229,7 @@ public class DriveSubsystem extends SubsystemBase {
     m_rearLeft.run(speed);
   }
 
+  //Highkey I don't remember where I was going with this function
   public ChassisSpeeds wheeliecool(double x, double y, double rot){
     return new ChassisSpeeds(x, y, rot);
   }

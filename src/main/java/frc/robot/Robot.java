@@ -52,11 +52,11 @@ public class Robot extends TimedRobot {
   public Robot() {
 
     //driveCam = CameraServer.startAutomaticCapture(0);
-    //clawCam = CameraServer.startAutomaticCapture(0);
+    clawCam = CameraServer.startAutomaticCapture(0);
     //elevatorCam = CameraServer.startAutomaticCapture(2);
 
    //driveCam.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
-    //clawCam.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+    clawCam.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
     //elevatorCam.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
 
   }
@@ -140,42 +140,50 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
   
-  System.out.println("Bottom Speed: " + m_robotContainer.elevateSpeedBottom);
-  System.out.println("Top speed: " + m_robotContainer.elevateSpeedTop);
-  /* 
+  //System.out.println("Bottom Speed: " + m_robotContainer.elevateSpeedBottom);
+  //System.out.println("Top speed: " + m_robotContainer.elevateSpeedTop);
+/* 
     //Disables upwards elevator movement
     if (elevatorStopTop.get() == true){
-      //m_robotContainer.m_elevator.disableUp();
+      m_robotContainer.disableElevatorUp();
+      System.out.println("ELEVATOR AT MAX HEIGHT\nSTOP MOVING ELEVATOR UP\n JESSICA STOP IT");
+      System.out.println("ELEVATOR AT MAX HEIGHT\nSTOP MOVING ELEVATOR UP\n JESSICA STOP IT");
+      System.out.println("ELEVATOR AT MAX HEIGHT\nSTOP MOVING ELEVATOR UP\n JESSICA STOP IT");
+      System.out.println("ELEVATOR AT MAX HEIGHT\nSTOP MOVING ELEVATOR UP\n JESSICA STOP IT");
       topLimitPressed = true;
     }
     if (elevatorStopTop.get() == false){
-      //m_robotContainer.m_elevator.enableUp();
+      m_robotContainer.enableElevatorUp();
       topLimitPressed = false;
     }
 
     //Disables downwards elevator movement
     if (elevatorStopBottom.get() == true){
-      //m_robotContainer.m_elevator.disableDown();
+      m_robotContainer.disableElevatorDown();
+      System.out.println("ELEVATOR AT MIN HEIGHT\nSTOP MOVING ELEVATOR DOWN\n JESSICA STOP IT");
+      System.out.println("ELEVATOR AT MIN HEIGHT\nSTOP MOVING ELEVATOR DOWN\n JESSICA STOP IT");
+      System.out.println("ELEVATOR AT MIN HEIGHT\nSTOP MOVING ELEVATOR DOWN\n JESSICA STOP IT");
+      System.out.println("ELEVATOR AT MIN HEIGHT\nSTOP MOVING ELEVATOR DOWN\n JESSICA STOP IT3");
       bottomLimitPressed = true;
     }
     if (elevatorStopBottom.get() == false){
-      //m_robotContainer.m_elevator.enableDown();
+      m_robotContainer.enableElevatorDown();
       bottomLimitPressed = false;
-    }*/
+    }
 
-  
+  */
     //Handles elevator controller bindings
 
-
+/* 
     if (elevatorStopTop.get() == false){
       if (m_robotContainer.m_subsystemController.povUp().getAsBoolean() == true){
-            m_robotContainer.m_elevator.elevateUp(-1);
+            m_robotContainer.m_elevator.elevateDown(-1);
       }
       if (m_robotContainer.m_subsystemController.povUp().getAsBoolean() == false){
-            m_robotContainer.m_elevator.elevateUp(0);
+            m_robotContainer.m_elevator.elevateDown(0);
       }
     if (elevatorStopTop.get() == true){
-      m_robotContainer.m_elevator.elevateUp(0);
+      m_robotContainer.m_elevator.elevateDown(0);
       }
     }
 
@@ -191,13 +199,14 @@ public class Robot extends TimedRobot {
       }
     }
   }
-
+*/
 /*     if (bottomLimitPressed == false){
       if (m_robotContainer.m_subsystemController.povDown().getAsBoolean() == false && m_robotContainer.m_subsystemController.povUp().getAsBoolean() == false){
         m_robotContainer.m_elevator.elevateDown(0);  
       }
+        */
     }
-      */
+      
 
   
 

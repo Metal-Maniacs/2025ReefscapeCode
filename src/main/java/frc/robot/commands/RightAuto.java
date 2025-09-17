@@ -5,7 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-//import frc.robot.subsystems.Claw;
+import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.DriveSubsystem;
 
 import org.opencv.core.Mat;
@@ -16,17 +16,16 @@ import frc.robot.subsystems.DriveSubsystem;
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class RightAuto extends Command {
   /** Creates a new AutoDriveForward. */
- //private Claw motor;
+  private Claw claw_motor;
   private DriveSubsystem m_DriveSubsystem; 
   private double timeToRun;
   private double initTime;
 
-
-  public RightAuto(DriveSubsystem mainDriveSubsystem, double time/* , Claw scorer*/) {
+  public RightAuto(DriveSubsystem mainDriveSubsystem, double time, Claw m_claw) {
     timeToRun = time;
     initTime = Timer.getTimestamp();
     m_DriveSubsystem = mainDriveSubsystem;
-    //motor = scorer;
+    claw_motor = m_claw;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -72,10 +71,10 @@ public class RightAuto extends Command {
       m_DriveSubsystem.drive(1,0, 0, false, 0.15);    
     }
 
-    /*while(Timer.getTimestamp() - initTime > 4.5 && (Timer.getTimestamp() - initTime <= 5.5)){
-      motor.useClaw(.75);
-      */
+    while(Timer.getTimestamp() - initTime > 4.5 && (Timer.getTimestamp() - initTime <= 6.5)){
+      claw_motor.useClaw(-1);
       
+    } 
     //if (Timer.getTimestamp() - initTime >= 6.5){
       //m_DriveSubsystem.runWheelMotors(0); 
     //}

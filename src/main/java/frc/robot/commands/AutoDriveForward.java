@@ -33,8 +33,8 @@ public class AutoDriveForward extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (Timer.getTimestamp() - initTime <= .25){
-      m_DriveSubsystem.drive(0,0, .5, false, 1);
+    if (Timer.getTimestamp() - initTime <= 1.5){
+      m_DriveSubsystem.drive(1,0, 0, false, .5);
     }
     else{
       m_DriveSubsystem.drive(0,0, 0, false, 0);

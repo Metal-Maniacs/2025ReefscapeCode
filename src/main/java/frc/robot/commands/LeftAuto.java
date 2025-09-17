@@ -11,7 +11,7 @@ import frc.robot.subsystems.DriveSubsystem;
 import org.opencv.core.Mat;
 
 import edu.wpi.first.wpilibj.Timer;
-import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.Claw;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class LeftAuto extends Command {
@@ -21,7 +21,7 @@ public class LeftAuto extends Command {
   private double initTime;
 
 
-  public LeftAuto(DriveSubsystem mainDriveSubsystem, double time) {
+  public LeftAuto(DriveSubsystem mainDriveSubsystem, Claw m_claw, double time) {
     
     timeToRun = time;
     initTime = Timer.getTimestamp();
@@ -33,7 +33,7 @@ public class LeftAuto extends Command {
   @Override
   public void initialize() {
   }
-
+  
   // Called every time the scheduler runs  while the command is scheduled.
   @Override
   public void execute() {
