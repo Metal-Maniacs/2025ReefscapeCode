@@ -17,7 +17,6 @@ public class Elevator extends SubsystemBase {
   double ElevatorMultUp = 1;
   
   double ElevatorMultDown = 1;
-  
 
   private SparkMax m_elevatorMotor;
   public Elevator() {
@@ -29,7 +28,7 @@ public class Elevator extends SubsystemBase {
   }
   public void enableUp(){
     ElevatorMultUp = 0.5;
-//og: 1
+  //og: 1
   }
   public void disableDown(){
     ElevatorMultDown = 0;
@@ -38,7 +37,6 @@ public class Elevator extends SubsystemBase {
     ElevatorMultDown = -0.5;
    //og: -1
   }
-
 
   public void elevate(double speed){
     m_elevatorMotor.set(speed);
