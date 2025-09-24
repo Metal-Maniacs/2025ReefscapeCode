@@ -17,9 +17,8 @@ import frc.robot.subsystems.Claw;
 public class LeftAuto extends Command {
   /** Creates a new AutoDriveForward. */
   private DriveSubsystem m_DriveSubsystem; 
-  private double timeToRun;
-  private double initTime;
-
+  private double timeToRun; // Duration of command
+  private double initTime; // Time when the command started
 
   public LeftAuto(DriveSubsystem mainDriveSubsystem, Claw m_claw, double time) {
     
@@ -32,6 +31,7 @@ public class LeftAuto extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    // Tumbleweed
   }
   
   // Called every time the scheduler runs  while the command is scheduled.
@@ -48,7 +48,7 @@ public class LeftAuto extends Command {
       }
   
       while(Timer.getTimestamp() - initTime > 2.5 && (Timer.getTimestamp() - initTime <= 4.5)){
-        m_DriveSubsystem.drive(1,0, 0, false, 0.15);    
+        m_DriveSubsystem.drive(1,0, 0, false, 0.15);
       }
     /*
     while (Timer.getTimestamp() - initTime <= 5){
@@ -69,11 +69,7 @@ public class LeftAuto extends Command {
 
     }
 */
-  
-
-  }
-    
-  
+  }  
 
   // Called once the command ends or is interrupted.
   @Override
@@ -82,10 +78,10 @@ public class LeftAuto extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    System.out.println(Timer.getTimestamp() - initTime);
-    
-    if (Timer.getTimestamp() - initTime >= timeToRun){
+    // Prints the amount of time the command took to run
+    System.out.println(Timer.getTimestamp() - initTime); 
 
+    if (Timer.getTimestamp() - initTime >= timeToRun){
       return true;
     }
     else {
