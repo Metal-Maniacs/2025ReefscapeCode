@@ -35,6 +35,8 @@ public class MiddleAuto extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
+
+  //runs for less tha or equal to 3 seconds
   public void execute() {
     while (Timer.getTimestamp() - initTime <= 3){ 
       m_DriveSubsystem.drive(1,0, 0, false, .5);
