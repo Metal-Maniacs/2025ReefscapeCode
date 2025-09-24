@@ -15,9 +15,9 @@ import frc.robot.Constants.DriveConstants;
 public class Elevator extends SubsystemBase {
 
   double ElevatorMultUp = 1;
-  //og: 1
+  
   double ElevatorMultDown = 1;
-  //og: 1
+  
 
   private SparkMax m_elevatorMotor;
   public Elevator() {
