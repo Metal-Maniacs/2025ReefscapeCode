@@ -226,14 +226,14 @@ public class RobotContainer {
 
      m_subsystemController.povRight().whileTrue(
         new StartEndCommand(
-            () -> m_claw.useClaw(-0.5), 
+            () -> m_claw.useClaw(-1), 
             //og: -1
             () -> m_claw.useClaw(0), 
             m_claw)
     );
     m_subsystemController.povLeft().whileTrue(
         new StartEndCommand(
-            () -> m_claw.useClaw(0.5), 
+            () -> m_claw.useClaw(1), 
               //og: 1
             () -> m_claw.useClaw(0),
             m_claw)
