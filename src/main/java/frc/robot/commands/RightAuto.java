@@ -59,21 +59,21 @@ public class RightAuto extends Command {
     */
 
   public void execute() {
+    // Before 2 seconds
     while (Timer.getTimestamp() - initTime < 2){
       m_DriveSubsystem.drive(1,0, 0, false, .075);
     }
-
+    // After 2 seconds and before 2.5 seconds
     while (Timer.getTimestamp() - initTime >= 2 && (Timer.getTimestamp() - initTime <= 2.5)){
       m_DriveSubsystem.drive(0,0, .22, false, 1);
     }
-
+    // After 2.5 seconds and before 4.5 seconds
     while(Timer.getTimestamp() - initTime > 2.5 && (Timer.getTimestamp() - initTime <= 4.5)){
       m_DriveSubsystem.drive(1,0, 0, false, 0.15);    
     }
-
+    // After 4.5 seconds and before 6.5 seconds
     while(Timer.getTimestamp() - initTime > 4.5 && (Timer.getTimestamp() - initTime <= 6.5)){
       claw_motor.useClaw(-1);
-      
     } 
     //if (Timer.getTimestamp() - initTime >= 6.5){
       //m_DriveSubsystem.runWheelMotors(0); 
@@ -89,7 +89,7 @@ public class RightAuto extends Command {
   @Override
   public boolean isFinished() {
     System.out.println(Timer.getTimestamp() - initTime);
-
+    // When the time running has surpassed the time to run, return true
     if (Timer.getTimestamp() - initTime >= timeToRun){
       return true;
     }
@@ -99,6 +99,7 @@ public class RightAuto extends Command {
   }
 
   private double feetToSpeed(double feet) {
+    // Conversion
     return feet / 24.93;
   }
 
