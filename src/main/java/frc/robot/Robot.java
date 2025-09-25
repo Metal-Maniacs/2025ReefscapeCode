@@ -31,6 +31,7 @@ import frc.robot.RobotContainer;
 public class Robot extends TimedRobot {
 
   CommandXboxController controller;
+  // usb camera for driver, claw, and elevator
   UsbCamera driveCam;
   UsbCamera clawCam;
   UsbCamera elevatorCam;
@@ -40,9 +41,11 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
 
+  // speed for up and down
   public DigitalInput elevatorStopTop;
   public DigitalInput elevatorStopBottom;
 
+  // limit for top and bottom
   boolean topLimitPressed;
   boolean bottomLimitPressed;
 
@@ -71,6 +74,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     
+    //DIO port for 0 & 1
     elevatorStopTop = new DigitalInput(1);
     elevatorStopBottom = new DigitalInput(0);
 
@@ -143,7 +147,7 @@ public class Robot extends TimedRobot {
   //System.out.println("Bottom Speed: " + m_robotContainer.elevateSpeedBottom);
   //System.out.println("Top speed: " + m_robotContainer.elevateSpeedTop);
 /* 
-    //Disables upwards elevator movement
+    //Disables upwards elevator movement to tell driver
     if (elevatorStopTop.get() == true){
       m_robotContainer.disableElevatorUp();
       System.out.println("ELEVATOR AT MAX HEIGHT\nSTOP MOVING ELEVATOR UP\n JESSICA STOP IT");
@@ -157,7 +161,7 @@ public class Robot extends TimedRobot {
       topLimitPressed = false;
     }
 
-    //Disables downwards elevator movement
+    //Disables downwards elevator movement to tell driver
     if (elevatorStopBottom.get() == true){
       m_robotContainer.disableElevatorDown();
       System.out.println("ELEVATOR AT MIN HEIGHT\nSTOP MOVING ELEVATOR DOWN\n JESSICA STOP IT");
@@ -175,6 +179,7 @@ public class Robot extends TimedRobot {
     //Handles elevator controller bindings
 
 /* 
+limit switch code that works?
     if (elevatorStopTop.get() == false){
       if (m_robotContainer.m_subsystemController.povUp().getAsBoolean() == true){
             m_robotContainer.m_elevator.elevateDown(-1);
