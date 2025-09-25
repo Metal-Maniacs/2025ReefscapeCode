@@ -54,7 +54,6 @@ public class RightAuto extends Command {
     if (Timer.getTimestamp() - initTime >= 15){
       //motor.useClaw(0);
     }
-  
   }
     */
 
@@ -78,7 +77,6 @@ public class RightAuto extends Command {
     //if (Timer.getTimestamp() - initTime >= 6.5){
       //m_DriveSubsystem.runWheelMotors(0); 
     //}
-
   }
 
   // Called once the command ends or is interrupted.
@@ -102,5 +100,4 @@ public class RightAuto extends Command {
     // Conversion
     return feet / 24.93;
   }
-
 }
