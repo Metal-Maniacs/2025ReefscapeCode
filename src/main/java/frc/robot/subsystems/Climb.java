@@ -15,11 +15,13 @@ import frc.robot.Constants.DriveConstants;
 
 public class Climb extends SubsystemBase {
 
+  //Climd id & motor type
   private final SparkMax m_climbMotor;
   public Climb() {
     m_climbMotor = new SparkMax(DriveConstants.kClimbCanId, MotorType.kBrushless);
   }
 
+  // speed of climb
   public void useClimb(double climbSpeed) {
     m_climbMotor.set(climbSpeed);
   }
