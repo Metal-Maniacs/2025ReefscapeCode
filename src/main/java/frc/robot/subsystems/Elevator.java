@@ -35,7 +35,7 @@ public class Elevator extends SubsystemBase {
   }
   public void enableDown(){
     ElevatorMultDown = -0.5;
-   //og: -1
+  //og: -1
   }
 
   public void elevate(double speed){
