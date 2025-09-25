@@ -30,9 +30,9 @@ public class AutoDriveForward extends Command {
   }
 
   // Called every time the scheduler runs while the command is scheduled.
+  
+  // runs for 1.5 seconds @ 0.5 speed also for testing
   @Override
-
-  //runs for 1.5 seconds @ 0.5 speed also for testing
   public void execute() {
     if (Timer.getTimestamp() - initTime <= 1.5){
       m_DriveSubsystem.drive(1,0, 0, false, .5);
@@ -40,17 +40,14 @@ public class AutoDriveForward extends Command {
     else{
       m_DriveSubsystem.drive(0,0, 0, false, 0);
     }
-    
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}
-
+  
   // Returns true when the command should end.
   @Override
-
-  // Checks if it's time to finish
   public boolean isFinished() {
     // Prints time since start
     System.out.println(Timer.getTimestamp() - initTime);
