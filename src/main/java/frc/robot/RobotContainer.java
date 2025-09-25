@@ -69,7 +69,6 @@ public class RobotContainer {
  //og: -1
  double elevateSpeedBottom = 0.5;
  //og: 1
-
  
   public void disableElevatorUp(){
     elevateSpeedTop = 0;
@@ -112,7 +111,6 @@ public class RobotContainer {
                 m_robotDrive));
     }
 
-
   /**
    * Use this method to define your button->command mappings. Buttons can be
    * created by
@@ -130,10 +128,6 @@ public class RobotContainer {
             m_robotDrive));
     */
     //pass in swerve and multiplier
-
-
-
-    
 
     m_driverController.x().whileTrue(
         new RunCommand(
@@ -167,7 +161,6 @@ public class RobotContainer {
                 0.75),
             m_robotDrive)
     );
-
     
     //Subsystems
    /*  elevatorStop.get().whileTrue(
@@ -184,7 +177,6 @@ public class RobotContainer {
             () -> m_robotDrive.setX(), 
             m_robotDrive)
     );
-
   
     /*m_subsystemController.x().whileTrue(
         new StartEndCommand(
@@ -239,9 +231,7 @@ public class RobotContainer {
             m_claw)
     );
     
-
-//i wanna cry
-     
+//i wanna cry     
  
     m_subsystemController.povDown().whileTrue(
 
@@ -264,14 +254,6 @@ public class RobotContainer {
             () -> m_elevator.elevate(0), 
             m_elevator)
     );
-  
-
-
-
-
-
-
-
   }
 
   /**
