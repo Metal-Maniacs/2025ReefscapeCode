@@ -129,6 +129,8 @@ public class RobotContainer {
     */
     //pass in swerve and multiplier
 
+//press x for 25% speed
+
     m_driverController.x().whileTrue(
         new RunCommand(
             () -> m_robotDrive.drive(
@@ -140,6 +142,7 @@ public class RobotContainer {
             m_robotDrive)
     );
 
+    //press y for 50% speed
     m_driverController.y().whileTrue(
         new RunCommand(
             () -> m_robotDrive.drive(
@@ -151,6 +154,7 @@ public class RobotContainer {
             m_robotDrive)
     );
 
+    //press b for 75% speed
     m_driverController.b().whileTrue(
         new RunCommand(
             () -> m_robotDrive.drive(
@@ -171,6 +175,7 @@ public class RobotContainer {
     );       
 */
 
+//right trigger to set the x position
     m_driverController.rightTrigger().whileTrue(
         new StartEndCommand(
             () -> m_robotDrive.setX(), 
@@ -216,6 +221,7 @@ public class RobotContainer {
   }
 */
 
+//d pad for right is claw output
      m_subsystemController.povRight().whileTrue(
         new StartEndCommand(
             () -> m_claw.useClaw(-1), 
@@ -223,6 +229,8 @@ public class RobotContainer {
             () -> m_claw.useClaw(0), 
             m_claw)
     );
+
+// d pad for left is claw input
     m_subsystemController.povLeft().whileTrue(
         new StartEndCommand(
             () -> m_claw.useClaw(1), 
@@ -230,9 +238,11 @@ public class RobotContainer {
             () -> m_claw.useClaw(0),
             m_claw)
     );
-    
-//i wanna cry     
- 
+
+//i wanna cry
+     
+// d pad for down is for going up
+
     m_subsystemController.povDown().whileTrue(
 
         new StartEndCommand(
@@ -245,8 +255,9 @@ public class RobotContainer {
 //i hate this
 //please work
 //move signal light
-
     );
+
+// d pad up for going down
     m_subsystemController.povUp().whileTrue(
 
         new StartEndCommand(
