@@ -21,9 +21,8 @@ public class LeftAuto extends Command {
   private double initTime; // Time when the command started
 
   public LeftAuto(DriveSubsystem mainDriveSubsystem, Claw m_claw, double time) {
-    
     timeToRun = time;
-    initTime = Timer.getTimestamp();
+    initTime = Timer.getTimestamp(); // Stores current time
     m_DriveSubsystem = mainDriveSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -34,19 +33,20 @@ public class LeftAuto extends Command {
     // Tumbleweed
   }
   
-  // Called every time the scheduler runs  while the command is scheduled.
+  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    // Prints the amount of time the command has been running
     System.out.println(Timer.getTimestamp() - initTime);
-
+      // Before 2 seconds
       while (Timer.getTimestamp() - initTime < 2){
         m_DriveSubsystem.drive(1,0, 0, false, .075);
       }
-  
+      // After 2 seconds and before 2.5 seconds
       while (Timer.getTimestamp() - initTime >= 2 && (Timer.getTimestamp() - initTime <= 2.5)){
         m_DriveSubsystem.drive(0,0, -.22, false, 1);
       }
-  
+      // After 2.5 seconds and before 4.5 seconds
       while(Timer.getTimestamp() - initTime > 2.5 && (Timer.getTimestamp() - initTime <= 4.5)){
         m_DriveSubsystem.drive(1,0, 0, false, 0.15);
       }
@@ -90,6 +90,7 @@ public class LeftAuto extends Command {
   }
 
   private double feetToSpeed(double feet) {
+    // Conversion
     return feet / 24.93;
   }
 }

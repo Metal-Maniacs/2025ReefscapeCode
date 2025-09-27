@@ -65,51 +65,52 @@ public class RobotContainer {
   // Controller Buttons
   Trigger xButton = m_driverController.x();
 
- double elevateSpeedTop = -0.5;
- //og: -1
- double elevateSpeedBottom = 0.5;
- //og: 1
- 
+  double elevateSpeedTop = -0.5;
+  //og: -1
+  double elevateSpeedBottom = 0.5;
+  //og: 1
+
   public void disableElevatorUp(){
-    elevateSpeedTop = 0;
+  elevateSpeedTop = 0;
   }
   public void enableElevatorUp(){
-    elevateSpeedTop = -0.5;
-    // og: -1
+  elevateSpeedTop = -0.5;
+  // og: -1
   }
 
   public void disableElevatorDown(){
-    elevateSpeedBottom = 0;
+  elevateSpeedBottom = 0;
   }
   public void enableElevatorDown(){
-    elevateSpeedBottom = 0.5;
-    // og: 1
+  elevateSpeedBottom = 0.5;
+  // og: 1
   }
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    // Configure the button bindings
-    configureButtonBindings();
+  // Configure the button bindings
+  configureButtonBindings();
 
-    //elevatorStop = new DigitalInput(0);
+  //elevatorStop = new DigitalInput(0);
 
-    // Configure default commands
+  // Configure default commands
 
-        m_robotDrive.setDefaultCommand(
-            // The left stick controls translation of the robot.
-            // Turning is controlled by the X axis of the right stick.
-            new RunCommand(
-                () -> m_robotDrive.drive(
-                    -MathUtil.applyDeadband(m_driverController.getLeftY(), OIConstants.kDriveDeadband),
-                    -MathUtil.applyDeadband(m_driverController.getLeftX(), OIConstants.kDriveDeadband),
-                    -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDriveDeadband),
-                    true,
-                    1),
-                    //og: 1
-                m_robotDrive));
-    }
+    m_robotDrive.setDefaultCommand(
+      // The left stick controls translation of the robot.
+      // Turning is controlled by the X axis of the right stick.
+      // Note that the applyDeadband() function results are inverted here by the - operator.
+      new RunCommand(
+        () -> m_robotDrive.drive(
+          -MathUtil.applyDeadband(m_driverController.getLeftY(), OIConstants.kDriveDeadband),
+          -MathUtil.applyDeadband(m_driverController.getLeftX(), OIConstants.kDriveDeadband),
+          -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDriveDeadband),
+          true,
+          1),
+          //og: 1
+        m_robotDrive));
+  }
 
   /**
    * Use this method to define your button->command mappings. Buttons can be
@@ -121,150 +122,149 @@ public class RobotContainer {
    * {@link JoystickButton}.
    */
   private void configureButtonBindings() {
-    /* old event based xboxcontroller
-    new JoystickButton(m_driverController, Button.kR1.value)
-        .whileTrue(new RunCommand(
-            () -> m_robotDrive.setX(),
-            m_robotDrive));
-    */
-    //pass in swerve and multiplier
+  /* old event based xboxcontroller
+  new JoystickButton(m_driverController, Button.kR1.value)
+    .whileTrue(new RunCommand(
+      () -> m_robotDrive.setX(),
+      m_robotDrive));
+  */
+// pass in swerve and multiplier
 
-//press x for 25% speed
+// press x for 25% speed
 
-    m_driverController.x().whileTrue(
-        new RunCommand(
-            () -> m_robotDrive.drive(
-                -MathUtil.applyDeadband(m_driverController.getLeftY(), OIConstants.kDriveDeadband),
-                -MathUtil.applyDeadband(m_driverController.getLeftX(), OIConstants.kDriveDeadband),
-                -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDriveDeadband),
-                true,
-                0.25),
-            m_robotDrive)
-    );
+  m_driverController.x().whileTrue(
+    new RunCommand(
+      () -> m_robotDrive.drive(
+        -MathUtil.applyDeadband(m_driverController.getLeftY(), OIConstants.kDriveDeadband),
+        -MathUtil.applyDeadband(m_driverController.getLeftX(), OIConstants.kDriveDeadband),
+        -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDriveDeadband),
+        true,
+        0.25),
+      m_robotDrive)
+  );
 
-    //press y for 50% speed
-    m_driverController.y().whileTrue(
-        new RunCommand(
-            () -> m_robotDrive.drive(
-                -MathUtil.applyDeadband(m_driverController.getLeftY(), OIConstants.kDriveDeadband),
-                -MathUtil.applyDeadband(m_driverController.getLeftX(), OIConstants.kDriveDeadband),
-                 -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDriveDeadband),
-                true,
-                0.5),
-            m_robotDrive)
-    );
+  // press y for 50% speed
+  m_driverController.y().whileTrue(
+    new RunCommand(
+      () -> m_robotDrive.drive(
+        -MathUtil.applyDeadband(m_driverController.getLeftY(), OIConstants.kDriveDeadband),
+        -MathUtil.applyDeadband(m_driverController.getLeftX(), OIConstants.kDriveDeadband),
+        -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDriveDeadband),
+        true,
+        0.5),
+      m_robotDrive)
+  );
 
-    //press b for 75% speed
-    m_driverController.b().whileTrue(
-        new RunCommand(
-            () -> m_robotDrive.drive(
-                -MathUtil.applyDeadband(m_driverController.getLeftY(), OIConstants.kDriveDeadband),
-                -MathUtil.applyDeadband(m_driverController.getLeftX(), OIConstants.kDriveDeadband),
-                 -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDriveDeadband),
-                true,
-                0.75),
-            m_robotDrive)
-    );
-    
-    //Subsystems
-   /*  elevatorStop.get().whileTrue(
-        new StartEndCommand(
-            () -> m_robotDrive.drive(1,0, 0, false, .16),
-            () -> m_robotDrive.drive(1,0, 0, false, .0),
-            m_robotDrive)
-    );       
+  // press b for 75% speed
+  m_driverController.b().whileTrue(
+    new RunCommand(
+      () -> m_robotDrive.drive(
+        -MathUtil.applyDeadband(m_driverController.getLeftY(), OIConstants.kDriveDeadband),
+        -MathUtil.applyDeadband(m_driverController.getLeftX(), OIConstants.kDriveDeadband),
+        -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDriveDeadband),
+        true,
+        0.75),
+      m_robotDrive)
+  );
+  
+  //Subsystems
+/*  
+  elevatorStop.get().whileTrue(
+    new StartEndCommand(
+      () -> m_robotDrive.drive(1,0, 0, false, .16),
+      () -> m_robotDrive.drive(1,0, 0, false, .0),
+      m_robotDrive)
+  );       
 */
 
 //right trigger to set the x position
-    m_driverController.rightTrigger().whileTrue(
-        new StartEndCommand(
-            () -> m_robotDrive.setX(), 
-            () -> m_robotDrive.setX(), 
-            m_robotDrive)
-    );
+  m_driverController.rightTrigger().whileTrue(
+    new StartEndCommand(
+      () -> m_robotDrive.setX(), 
+      () -> m_robotDrive.setX(), 
+      m_robotDrive)
+  );
   
-    /*m_subsystemController.x().whileTrue(
-        new StartEndCommand(
-            () -> climbmult = 2, 
-            () -> climbmult = 1,
-            m_climb)
-    );
+  /*m_subsystemController.x().whileTrue(
+    new StartEndCommand(
+      () -> climbmult = 2, 
+      () -> climbmult = 1,
+      m_climb)
+  );
 
-    m_subsystemController.y().whileTrue(
-        new StartEndCommand(
-            () -> climbmult = 1.5, 
-            () -> climbmult = 1,
-            m_climb)
-    );
+  m_subsystemController.y().whileTrue(
+    new StartEndCommand(
+      () -> climbmult = 1.5, 
+      () -> climbmult = 1,
+      m_climb)
+  );
 
-    m_subsystemController.b().whileTrue(
-        new StartEndCommand(
-            () -> climbmult = .5, 
-            () -> climbmult = 1,
-            m_climb)
-    );
+  m_subsystemController.b().whileTrue(
+    new StartEndCommand(
+      () -> climbmult = .5, 
+      () -> climbmult = 1,
+      m_climb)
+  );
 
-    m_subsystemController.rightBumper().whileTrue(
-        new StartEndCommand(
-            () -> m_climb.useClimb(.5*climbmult), 
-            () -> m_climb.useClimb(0), 
-            m_climb)
-    );
-
+  m_subsystemController.rightBumper().whileTrue(
+    new StartEndCommand(
+      () -> m_climb.useClimb(.5*climbmult), 
+      () -> m_climb.useClimb(0), 
+      m_climb)
+  );
 
   m_subsystemController.leftBumper().whileTrue(   
-        new StartEndCommand(
-            () -> m_climb.useClimb(-.5*climbmult), 
-            () -> m_climb.useClimb(0), 
-            m_climb)
-    );
+    new StartEndCommand(
+      () -> m_climb.useClimb(-.5*climbmult), 
+      () -> m_climb.useClimb(0), 
+      m_climb)
+  );
   }
 */
 
 //d pad for right is claw output
-     m_subsystemController.povRight().whileTrue(
-        new StartEndCommand(
-            () -> m_claw.useClaw(-1), 
-            //og: -1
-            () -> m_claw.useClaw(0), 
-            m_claw)
-    );
+  m_subsystemController.povRight().whileTrue(
+    new StartEndCommand(
+      () -> m_claw.useClaw(-1), 
+      //og: -1
+      () -> m_claw.useClaw(0), 
+      m_claw)
+  );
 
 // d pad for left is claw input
-    m_subsystemController.povLeft().whileTrue(
-        new StartEndCommand(
-            () -> m_claw.useClaw(1), 
+  m_subsystemController.povLeft().whileTrue(
+    new StartEndCommand(
+      () -> m_claw.useClaw(1), 
               //og: 1
-            () -> m_claw.useClaw(0),
-            m_claw)
-    );
+      () -> m_claw.useClaw(0),
+      m_claw)
+  );
 
 //i wanna cry
      
 // d pad for down is for going up
 
-    m_subsystemController.povDown().whileTrue(
-
-        new StartEndCommand(
-            () -> m_elevator.elevate(elevateSpeedTop), 
-            () -> m_elevator.elevate(0), 
-            m_elevator)
+  m_subsystemController.povDown().whileTrue(
+    new StartEndCommand(
+      () -> m_elevator.elevate(elevateSpeedTop), 
+      () -> m_elevator.elevate(0), 
+      m_elevator)
 
 //ow fuck
 //magic magic please work
 //i hate this
 //please work
 //move signal light
-    );
+  );
 
 // d pad up for going down
-    m_subsystemController.povUp().whileTrue(
+  m_subsystemController.povUp().whileTrue(
 
-        new StartEndCommand(
-            () -> m_elevator.elevate(elevateSpeedBottom), 
-            () -> m_elevator.elevate(0), 
-            m_elevator)
-    );
+    new StartEndCommand(
+      () -> m_elevator.elevate(elevateSpeedBottom), 
+      () -> m_elevator.elevate(0), 
+      m_elevator)
+  );
   }
 
   /**
@@ -273,50 +273,49 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    /*
-    // Create config for trajectory
-    TrajectoryConfig config = new TrajectoryConfig(
-        AutoConstants.kMaxSpeedMetersPerSecond,
-        AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-        // Add kinematics to ensure max speed is actually obeyed
-        .setKinematics(DriveConstants.kDriveKinematics);
+  /*
+  // Create config for trajectory
+  TrajectoryConfig config = new TrajectoryConfig(
+    AutoConstants.kMaxSpeedMetersPerSecond,
+    AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+    // Add kinematics to ensure max speed is actually obeyed
+    .setKinematics(DriveConstants.kDriveKinematics);
 
-    // An example trajectory to follow. All units in meters.
-    Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
-        // Start at the origin facing the +X direction
-        new Pose2d(0, 0, new Rotation2d(0)),
-        // Pass through these two interior waypoints, making an 's' curve path
-        List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
-        // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(3, 0, new Rotation2d(0)),
-        config);
+  // An example trajectory to follow. All units in meters.
+  Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
+    // Start at the origin facing the +X direction
+    new Pose2d(0, 0, new Rotation2d(0)),
+    // Pass through these two interior waypoints, making an 's' curve path
+    List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
+    // End 3 meters straight ahead of where we started, facing forward
+    new Pose2d(3, 0, new Rotation2d(0)),
+    config);
 
-    var thetaController = new ProfiledPIDController(
-        AutoConstants.kPThetaController, 0, 0, AutoConstants.kThetaControllerConstraints);
-    thetaController.enableContinuousInput(-Math.PI, Math.PI);
+  var thetaController = new ProfiledPIDController(
+    AutoConstants.kPThetaController, 0, 0, AutoConstants.kThetaControllerConstraints);
+  thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
-    SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
-        exampleTrajectory,
-        m_robotDrive::getPose, // Functional interface to feed supplier
-        DriveConstants.kDriveKinematics,
+  SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
+    exampleTrajectory,
+    m_robotDrive::getPose, // Functional interface to feed supplier
+    DriveConstants.kDriveKinematics,
 
-        // Position controllers
-        new PIDController(AutoConstants.kPXController, 0, 0),
-        new PIDController(AutoConstants.kPYController, 0, 0),
-        thetaController,
-        m_robotDrive::setModuleStates,
-        m_robotDrive);
+    // Position controllers
+    new PIDController(AutoConstants.kPXController, 0, 0),
+    new PIDController(AutoConstants.kPYController, 0, 0),
+    thetaController,
+    m_robotDrive::setModuleStates,
+    m_robotDrive);
+  // Reset odometry to the starting pose of the trajectory.
+  m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose());
 
-    // Reset odometry to the starting pose of the trajectory.
-    m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose());
-
-    // Run path following command, then stop at the end.
-    return swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false));
-    */
-    //return new LeftAuto(m_robotDrive, m_claw, 15);
-    //return new RightAuto(m_robotDrive, m_claw, 15);
-    //return new AutoDriveForward(m_robotDrive, 15);
-    //return new MiddleAuto(m_robotDrive, m_claw, 15);
-    return null;
+  // Run path following command, then stop at the end.
+  return swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false));
+  */
+  //return new LeftAuto(m_robotDrive, m_claw, 15);
+  //return new RightAuto(m_robotDrive, m_claw, 15);
+  //return new AutoDriveForward(m_robotDrive, 15);
+  //return new MiddleAuto(m_robotDrive, m_claw, 15);
+  return null;
   }
 }

@@ -46,7 +46,6 @@ public class MiddleAuto extends Command {
      claw_motor.useClaw(-1); 
     }
     //claw_motor.useClaw(0);
-    
   }
 
   // Called once the command ends or is interrupted.
@@ -57,7 +56,7 @@ public class MiddleAuto extends Command {
   @Override
   public boolean isFinished() {
     System.out.println(Timer.getTimestamp() - initTime);
-    //
+    // When the time running has surpassed the time to run, return true
     if (Timer.getTimestamp() - initTime >= timeToRun){
       return true;
     }
@@ -66,5 +65,3 @@ public class MiddleAuto extends Command {
     }
   }
 }
-
-
