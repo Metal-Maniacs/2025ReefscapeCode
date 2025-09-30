@@ -80,7 +80,7 @@ public class Robot extends TimedRobot {
 
     topLimitPressed = false;
     bottomLimitPressed = false;
-
+    
   }
 
   /**
@@ -205,12 +205,13 @@ limit switch code that works?
     }
   }
 */
-/*     if (bottomLimitPressed == false){
+/*  if (bottomLimitPressed == false){
       if (m_robotContainer.m_subsystemController.povDown().getAsBoolean() == false && m_robotContainer.m_subsystemController.povUp().getAsBoolean() == false){
         m_robotContainer.m_elevator.elevateDown(0);  
       }
-        */
     }
+*/
+  }
       
   @Override
   public void testInit() {
