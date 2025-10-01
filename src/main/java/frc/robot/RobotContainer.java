@@ -65,25 +65,25 @@ public class RobotContainer {
   // Controller Buttons
   Trigger xButton = m_driverController.x();
 
-  double elevateSpeedTop = -0.5;
   //og: -1
-  double elevateSpeedBottom = 0.5;
+  double elevateSpeedTop = -0.5;
   //og: 1
+  double elevateSpeedBottom = 0.5;
 
   public void disableElevatorUp(){
-  elevateSpeedTop = 0;
+    elevateSpeedTop = 0;
   }
   public void enableElevatorUp(){
-  elevateSpeedTop = -0.5;
-  // og: -1
+    // og: -1
+    elevateSpeedTop = -0.5;
   }
 
   public void disableElevatorDown(){
-  elevateSpeedBottom = 0;
+    elevateSpeedBottom = 0;
   }
   public void enableElevatorDown(){
-  elevateSpeedBottom = 0.5;
-  // og: 1
+    // og: 1
+    elevateSpeedBottom = 0.5;
   }
 
   /**
@@ -100,7 +100,7 @@ public class RobotContainer {
     m_robotDrive.setDefaultCommand(
       // The left stick controls translation of the robot.
       // Turning is controlled by the X axis of the right stick.
-      // Note that the applyDeadband() function results are inverted here by the - operator.
+      // Note that the MathUtil.applyDeadband() outputs are inverted here by the - operator.
       new RunCommand(
         () -> m_robotDrive.drive(
           -MathUtil.applyDeadband(m_driverController.getLeftY(), OIConstants.kDriveDeadband),
@@ -235,7 +235,7 @@ public class RobotContainer {
   m_subsystemController.povLeft().whileTrue(
     new StartEndCommand(
       () -> m_claw.useClaw(1), 
-              //og: 1
+      //og: 1
       () -> m_claw.useClaw(0),
       m_claw)
   );
@@ -249,17 +249,16 @@ public class RobotContainer {
       () -> m_elevator.elevate(elevateSpeedTop), 
       () -> m_elevator.elevate(0), 
       m_elevator)
+  );
 
 //ow fuck
 //magic magic please work
 //i hate this
 //please work
 //move signal light
-  );
 
 // d pad up for going down
   m_subsystemController.povUp().whileTrue(
-
     new StartEndCommand(
       () -> m_elevator.elevate(elevateSpeedBottom), 
       () -> m_elevator.elevate(0), 
@@ -273,49 +272,49 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-  /*
-  // Create config for trajectory
-  TrajectoryConfig config = new TrajectoryConfig(
-    AutoConstants.kMaxSpeedMetersPerSecond,
-    AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-    // Add kinematics to ensure max speed is actually obeyed
-    .setKinematics(DriveConstants.kDriveKinematics);
+    /*
+    // Create config for trajectory
+    TrajectoryConfig config = new TrajectoryConfig(
+      AutoConstants.kMaxSpeedMetersPerSecond,
+      AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+      // Add kinematics to ensure max speed is actually obeyed
+      .setKinematics(DriveConstants.kDriveKinematics);
 
-  // An example trajectory to follow. All units in meters.
-  Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
-    // Start at the origin facing the +X direction
-    new Pose2d(0, 0, new Rotation2d(0)),
-    // Pass through these two interior waypoints, making an 's' curve path
-    List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
-    // End 3 meters straight ahead of where we started, facing forward
-    new Pose2d(3, 0, new Rotation2d(0)),
-    config);
+    // An example trajectory to follow. All units in meters.
+    Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
+      // Start at the origin facing the +X direction
+      new Pose2d(0, 0, new Rotation2d(0)),
+      // Pass through these two interior waypoints, making an 's' curve path
+      List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
+      // End 3 meters straight ahead of where we started, facing forward
+      new Pose2d(3, 0, new Rotation2d(0)),
+      config);
 
-  var thetaController = new ProfiledPIDController(
-    AutoConstants.kPThetaController, 0, 0, AutoConstants.kThetaControllerConstraints);
-  thetaController.enableContinuousInput(-Math.PI, Math.PI);
+    var thetaController = new ProfiledPIDController(
+      AutoConstants.kPThetaController, 0, 0, AutoConstants.kThetaControllerConstraints);
+    thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
-  SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
-    exampleTrajectory,
-    m_robotDrive::getPose, // Functional interface to feed supplier
-    DriveConstants.kDriveKinematics,
+    SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
+      exampleTrajectory,
+      m_robotDrive::getPose, // Functional interface to feed supplier
+      DriveConstants.kDriveKinematics,
 
-    // Position controllers
-    new PIDController(AutoConstants.kPXController, 0, 0),
-    new PIDController(AutoConstants.kPYController, 0, 0),
-    thetaController,
-    m_robotDrive::setModuleStates,
-    m_robotDrive);
-  // Reset odometry to the starting pose of the trajectory.
-  m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose());
+      // Position controllers
+      new PIDController(AutoConstants.kPXController, 0, 0),
+      new PIDController(AutoConstants.kPYController, 0, 0),
+      thetaController,
+      m_robotDrive::setModuleStates,
+      m_robotDrive);
+    // Reset odometry to the starting pose of the trajectory.
+    m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose());
 
-  // Run path following command, then stop at the end.
-  return swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false));
-  */
-  //return new LeftAuto(m_robotDrive, m_claw, 15);
-  //return new RightAuto(m_robotDrive, m_claw, 15);
-  //return new AutoDriveForward(m_robotDrive, 15);
-  //return new MiddleAuto(m_robotDrive, m_claw, 15);
-  return null;
+    // Run path following command, then stop at the end.
+    return swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false));
+    */
+    //return new LeftAuto(m_robotDrive, m_claw, 15);
+    //return new RightAuto(m_robotDrive, m_claw, 15);
+    //return new AutoDriveForward(m_robotDrive, 15);
+    //return new MiddleAuto(m_robotDrive, m_claw, 15);
+    return null;
   }
 }
