@@ -35,28 +35,28 @@ public class RightAuto extends Command {
   }
 
   // Called every time the scheduler runs  while the command is scheduled.
-  @Override
   /* 
   public void execute() {
     while (Timer.getTimestamp() - initTime > .004 && Timer.getTimestamp() - initTime < 4.998){
       m_DriveSubsystem.runWheelMotors(.26868);
-    }
-    if (Timer.getTimestamp() - initTime <= 5.002 && (Timer.getTimestamp() - initTime >= 4.998)){
-      m_DriveSubsystem.setForward();
-    }
-    while(Timer.getTimestamp() - initTime > 5.002 && (Timer.getTimestamp() - initTime <= 10)){
-      m_DriveSubsystem.runWheelMotors(.26868);
       }
-    while(Timer.getTimestamp() - initTime > 10 && (Timer.getTimestamp() - initTime <= 15)){
-      m_DriveSubsystem.runWheelMotors(0);
-      //motor.useClaw(.6);
-    }
-    if (Timer.getTimestamp() - initTime >= 15){
-      //motor.useClaw(0);
-    }
-  }
-    */
-
+      if (Timer.getTimestamp() - initTime <= 5.002 && (Timer.getTimestamp() - initTime >= 4.998)){
+        m_DriveSubsystem.setForward();
+        }
+        while(Timer.getTimestamp() - initTime > 5.002 && (Timer.getTimestamp() - initTime <= 10)){
+          m_DriveSubsystem.runWheelMotors(.26868);
+          }
+          while(Timer.getTimestamp() - initTime > 10 && (Timer.getTimestamp() - initTime <= 15)){
+            m_DriveSubsystem.runWheelMotors(0);
+            //motor.useClaw(.6);
+            }
+            if (Timer.getTimestamp() - initTime >= 15){
+              //motor.useClaw(0);
+              }
+              }
+              */
+              
+  @Override
   public void execute() {
     // Before 2 seconds
     while (Timer.getTimestamp() - initTime < 2){
