@@ -22,7 +22,7 @@ public class Claw extends SubsystemBase {
     //addChild("m_clawMotor", (Sendable) m_clawMotor);
   }
 
-// claw speed
+  // claw speed
   public void useClaw(double clawSpeed) {
     m_clawMotor.set(clawSpeed);
   }

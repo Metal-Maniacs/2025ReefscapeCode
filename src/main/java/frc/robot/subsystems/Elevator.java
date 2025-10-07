@@ -25,26 +25,26 @@ public class Elevator extends SubsystemBase {
     m_elevatorMotor = new SparkMax(DriveConstants.kElevatorCanId, MotorType.kBrushless);
   }
 
-  public void disableUp(){
+  public void disableUp() {
     ElevatorMultUp = 0;
   }
   // Changes the speed of elevator
-  public void enableUp(){
+  public void enableUp() {
     //og: 1
     ElevatorMultUp = 0.5;
   }
 
-  public void disableDown(){
+  public void disableDown() {
     ElevatorMultDown = 0;
   }
 
   // Changes the speed of elevator
-  public void enableDown(){
+  public void enableDown() {
     //og: -1
     ElevatorMultDown = -0.5;
   }
 
-  public void elevate(double speed){
+  public void elevate(double speed) {
     m_elevatorMotor.set(speed);
   }
     

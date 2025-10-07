@@ -64,12 +64,10 @@ public class DriveSubsystem extends SubsystemBase {
       m_rearRight.getPosition()
     });
 
-  
-
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
   // Usage reporting for MAXSwerve template (do we need this?)
-  HAL.report(tResourceType.kResourceType_RobotDrive, tInstances.kRobotDriveSwerve_MaxSwerve);
+    HAL.report(tResourceType.kResourceType_RobotDrive, tInstances.kRobotDriveSwerve_MaxSwerve);
 
   /* 
      // All other subsystem initialization
