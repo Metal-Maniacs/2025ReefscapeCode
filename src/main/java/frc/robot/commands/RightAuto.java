@@ -88,7 +88,7 @@ public class RightAuto extends Command {
   public boolean isFinished() {
     System.out.println(Timer.getTimestamp() - initTime);
     // When the time running has surpassed the time to run, return true
-    if (Timer.getTimestamp() - initTime >= timeToRun){
+    if (Timer.getTimestamp() - initTime >= timeToRun) {
       return true;
     }
     else {

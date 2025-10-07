@@ -117,16 +117,16 @@ public class DriveSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-  // Update the odometry in the periodic block
-  m_odometry.update(
-  Rotation2d.fromDegrees(m_gyro.getAngle(IMUAxis.kZ)),
-  new SwerveModulePosition[] {
-    //get position of wheel
-    m_frontLeft.getPosition(),
-    m_frontRight.getPosition(),
-    m_rearLeft.getPosition(),
-    m_rearRight.getPosition()
-  });
+    // Update the odometry in the periodic block
+    m_odometry.update(
+    Rotation2d.fromDegrees(m_gyro.getAngle(IMUAxis.kZ)),
+    new SwerveModulePosition[] {
+      //get position of wheel
+      m_frontLeft.getPosition(),
+      m_frontRight.getPosition(),
+      m_rearLeft.getPosition(),
+      m_rearRight.getPosition()
+    });
   }
 
   /**
@@ -135,7 +135,7 @@ public class DriveSubsystem extends SubsystemBase {
    * @return The pose.
    */
   public Pose2d getPose() {
-  return m_odometry.getPoseMeters();
+    return m_odometry.getPoseMeters();
   }
 
   /**
