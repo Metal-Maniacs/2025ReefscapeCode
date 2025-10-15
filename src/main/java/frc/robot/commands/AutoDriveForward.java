@@ -35,10 +35,10 @@ public class AutoDriveForward extends Command {
   @Override
   public void execute() {
     if (Timer.getTimestamp() - initTime <= 1.5){
-      m_DriveSubsystem.drive(1,0, 0, false, .5);
+      m_DriveSubsystem.drive(1, 0, 0, false, .5);
     }
     else{
-      m_DriveSubsystem.drive(0,0, 0, false, 0);
+      m_DriveSubsystem.drive(0, 0, 0, false, 0);
     }
   }
 
