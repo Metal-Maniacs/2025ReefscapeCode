@@ -64,12 +64,10 @@ public class DriveSubsystem extends SubsystemBase {
       m_rearRight.getPosition()
     });
 
-  
-
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
   // Usage reporting for MAXSwerve template (do we need this?)
-  HAL.report(tResourceType.kResourceType_RobotDrive, tInstances.kRobotDriveSwerve_MaxSwerve);
+    HAL.report(tResourceType.kResourceType_RobotDrive, tInstances.kRobotDriveSwerve_MaxSwerve);
 
   /* 
      // All other subsystem initialization
@@ -117,16 +115,16 @@ public class DriveSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-  // Update the odometry in the periodic block
-  m_odometry.update(
-  Rotation2d.fromDegrees(m_gyro.getAngle(IMUAxis.kZ)),
-  new SwerveModulePosition[] {
-          //get position of wheel
+    // Update the odometry in the periodic block
+    m_odometry.update(
+    Rotation2d.fromDegrees(m_gyro.getAngle(IMUAxis.kZ)),
+    new SwerveModulePosition[] {
+      //get position of wheel
       m_frontLeft.getPosition(),
       m_frontRight.getPosition(),
       m_rearLeft.getPosition(),
       m_rearRight.getPosition()
-  });
+    });
   }
 
   /**
@@ -135,7 +133,7 @@ public class DriveSubsystem extends SubsystemBase {
    * @return The pose.
    */
   public Pose2d getPose() {
-  return m_odometry.getPoseMeters();
+    return m_odometry.getPoseMeters();
   }
 
   /**
@@ -148,10 +146,10 @@ public class DriveSubsystem extends SubsystemBase {
       Rotation2d.fromDegrees(m_gyro.getAngle(IMUAxis.kZ)),
       //this sets to og position 
       new SwerveModulePosition[] {
-  m_frontLeft.getPosition(),
-  m_frontRight.getPosition(),
-  m_rearLeft.getPosition(),
-  m_rearRight.getPosition()
+        m_frontLeft.getPosition(),
+        m_frontRight.getPosition(),
+        m_rearLeft.getPosition(),
+        m_rearRight.getPosition()
       },
       pose);
   }
@@ -180,55 +178,55 @@ public class DriveSubsystem extends SubsystemBase {
   : new ChassisSpeeds(xSpeedDelivered, ySpeedDelivered, rotDelivered));
   SwerveDriveKinematics.desaturateWheelSpeeds(
       swerveModuleStates, DriveConstants.kMaxSpeedMetersPerSecond);
-  m_frontLeft.setDesiredState(swerveModuleStates[0]);
-  m_frontRight.setDesiredState(swerveModuleStates[1]);
-  m_rearLeft.setDesiredState(swerveModuleStates[2]);
-  m_rearRight.setDesiredState(swerveModuleStates[3]);
+      m_frontLeft.setDesiredState(swerveModuleStates[0]);
+      m_frontRight.setDesiredState(swerveModuleStates[1]);
+      m_rearLeft.setDesiredState(swerveModuleStates[2]);
+      m_rearRight.setDesiredState(swerveModuleStates[3]);
   }
 
   public void setMult(double num) {
-  multiplierOfSpeed = num;
+    multiplierOfSpeed = num;
   }
 
   /**
    * Sets the wheels into an X formation to prevent movement.
    */
   public void setX() {
-  m_frontLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
-  m_frontRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
-  m_rearLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
-  m_rearRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
+    m_frontLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
+    m_frontRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
+    m_rearLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
+    m_rearRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
   }
 
   public void setForward() {
-  m_frontLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
-  m_frontRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
-  m_rearLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
-  m_rearRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
+    m_frontLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
+    m_frontRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
+    m_rearLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
+    m_rearRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
   }
 
   public void set90Deg() {
-  m_frontLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(90)));
-  m_frontRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(90)));
-  m_rearLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(90)));
-  m_rearRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(90)));
+    m_frontLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(90)));
+    m_frontRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(90)));
+    m_rearLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(90)));
+    m_rearRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(90)));
   }
 
   public void set45Deg(int invert) {
-  m_frontLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45*invert)));
-  m_frontRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45*invert)));
-  m_rearLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45*invert)));
-  m_rearRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45*invert)));
+    m_frontLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45*invert)));
+    m_frontRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45*invert)));
+    m_rearLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45*invert)));
+    m_rearRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45*invert)));
   }
 
   //Unique from the Drive function
   //Allows wheel motors to run without altering the swerve modules rotational state
   //Highkey this sucks cause it can cause wheels to run in opposite directions depending on their rotational state
   public void runWheelMotors(double speed){
-  m_frontRight.run(speed);
-  m_frontLeft.run(-speed);
-  m_rearRight.run(-speed);
-  m_rearLeft.run(speed);
+    m_frontRight.run(speed);
+    m_frontLeft.run(-speed);
+    m_rearRight.run(-speed);
+    m_rearLeft.run(speed);
   }
 
   /*Highkey I don't remember where I was going with this function
@@ -255,25 +253,25 @@ public class DriveSubsystem extends SubsystemBase {
    * @param desiredStates The desired SwerveModule states.
    */
   public void setModuleStates(SwerveModuleState[] desiredStates) {
-  SwerveDriveKinematics.desaturateWheelSpeeds(
-  desiredStates, DriveConstants.kMaxSpeedMetersPerSecond);
-  m_frontLeft.setDesiredState(desiredStates[0]);
-  m_frontRight.setDesiredState(desiredStates[1]);
-  m_rearLeft.setDesiredState(desiredStates[2]);
-  m_rearRight.setDesiredState(desiredStates[3]);
+    SwerveDriveKinematics.desaturateWheelSpeeds(
+    desiredStates, DriveConstants.kMaxSpeedMetersPerSecond);
+    m_frontLeft.setDesiredState(desiredStates[0]);
+    m_frontRight.setDesiredState(desiredStates[1]);
+    m_rearLeft.setDesiredState(desiredStates[2]);
+    m_rearRight.setDesiredState(desiredStates[3]);
   }
 
   /** Resets the drive encoders to currently read a position of 0. */
   public void resetEncoders() {
-  m_frontLeft.resetEncoders();
-  m_rearLeft.resetEncoders();
-  m_frontRight.resetEncoders();
-  m_rearRight.resetEncoders();
+    m_frontLeft.resetEncoders();
+    m_rearLeft.resetEncoders();
+    m_frontRight.resetEncoders();
+    m_rearRight.resetEncoders();
   }
 
   /** Zeroes the heading of the robot. */
   public void zeroHeading() {
-  m_gyro.reset();
+    m_gyro.reset();
   }
 
   /**
@@ -282,7 +280,7 @@ public class DriveSubsystem extends SubsystemBase {
    * @return the robot's heading in degrees, from -180 to 180
    */
   public double getHeading() {
-  return Rotation2d.fromDegrees(m_gyro.getAngle(IMUAxis.kZ)).getDegrees();
+    return Rotation2d.fromDegrees(m_gyro.getAngle(IMUAxis.kZ)).getDegrees();
   }
 
   /**
@@ -291,7 +289,7 @@ public class DriveSubsystem extends SubsystemBase {
    * @return The turn rate of the robot, in degrees per second
    */
   public double getTurnRate() {
-  return m_gyro.getRate(IMUAxis.kZ) * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
+    return m_gyro.getRate(IMUAxis.kZ) * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
   }
 }
 
