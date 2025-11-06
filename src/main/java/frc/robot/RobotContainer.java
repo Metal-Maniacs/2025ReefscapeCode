@@ -66,16 +66,16 @@ public class RobotContainer {
   Trigger xButton = m_driverController.x();
 
   //og: -1
-  double elevateSpeedTop = -0.5;
+  double elevateSpeedTop = -1;
   //og: 1
-  double elevateSpeedBottom = 0.5;
+  double elevateSpeedBottom = 1;
 
   public void disableElevatorUp(){
     elevateSpeedTop = 0;
   }
   public void enableElevatorUp(){
     // og: -1
-    elevateSpeedTop = -0.5;
+    elevateSpeedTop = -1;
   }
 
   public void disableElevatorDown(){
@@ -83,7 +83,7 @@ public class RobotContainer {
   }
   public void enableElevatorDown(){
     // og: 1
-    elevateSpeedBottom = 0.5;
+    elevateSpeedBottom = 1;
   }
 
   /**
@@ -166,6 +166,18 @@ public class RobotContainer {
         0.75),
       m_robotDrive)
   );
+
+  // press A for 10% speed
+  m_driverController.a().whileTrue(
+    new RunCommand(
+      () -> m_robotDrive.drive(
+        -MathUtil.applyDeadband(m_driverController.getLeftY(), OIConstants.kDriveDeadband),
+        -MathUtil.applyDeadband(m_driverController.getLeftX(), OIConstants.kDriveDeadband),
+        -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDriveDeadband),
+        true,
+        0.1),
+      m_robotDrive)
+  );
   
   //Subsystems
 /*  
@@ -244,12 +256,28 @@ public class RobotContainer {
      
 // d pad for down is for going up
 
-  m_subsystemController.povDown().whileTrue(
+m_subsystemController.leftBumper().whileTrue(
+new StartEndCommand(
+  () -> m_elevator.elevate(elevateSpeedTop), 
+  () -> m_elevator.elevate(0), 
+  m_elevator)
+);
+
+m_subsystemController.rightBumper().whileTrue(
+  new StartEndCommand(
+() -> m_elevator.elevate(elevateSpeedBottom), 
+() -> m_elevator.elevate(0), 
+m_elevator));
+
+
+//going up
+   m_subsystemController.povDown().whileTrue(
     new StartEndCommand(
       () -> m_elevator.elevate(elevateSpeedTop), 
       () -> m_elevator.elevate(0), 
       m_elevator)
   );
+
 
 //ow fuck
 //magic magic please work
@@ -258,13 +286,15 @@ public class RobotContainer {
 //move signal light
 
 // d pad up for going down
-  m_subsystemController.povUp().whileTrue(
+ m_subsystemController.povUp().whileTrue(
     new StartEndCommand(
       () -> m_elevator.elevate(elevateSpeedBottom), 
       () -> m_elevator.elevate(0), 
       m_elevator)
   );
+  
   }
+
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -313,8 +343,8 @@ public class RobotContainer {
     */
     //return new LeftAuto(m_robotDrive, m_claw, 15);
     //return new RightAuto(m_robotDrive, m_claw, 15);
-    //return new AutoDriveForward(m_robotDrive, 15);
+    return new AutoDriveForward(m_robotDrive, 15);
     //return new MiddleAuto(m_robotDrive, m_claw, 15);
-    return null;
+    //return null;
   }
 }

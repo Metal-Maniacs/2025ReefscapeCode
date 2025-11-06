@@ -31,7 +31,7 @@ public class Elevator extends SubsystemBase {
   // Changes the speed of elevator
   public void enableUp(){
     //og: 1
-    ElevatorMultUp = 0.5;
+    ElevatorMultUp = 1;
   }
 
   public void disableDown(){
@@ -41,7 +41,7 @@ public class Elevator extends SubsystemBase {
   // Changes the speed of elevator
   public void enableDown(){
     //og: -1
-    ElevatorMultDown = -0.5;
+    ElevatorMultDown = -1;
   }
 
   public void elevate(double speed){
