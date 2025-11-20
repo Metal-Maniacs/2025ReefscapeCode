@@ -7,6 +7,7 @@ package frc.robot;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Timer;
 /*import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -24,6 +25,7 @@ import frc.robot.commands.AutoDriveForward;
 import frc.robot.commands.LeftAuto;
 import frc.robot.commands.RightAuto;
 import frc.robot.commands.MiddleAuto;
+import frc.robot.commands.ElevatorAutoL2;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Elevator;
@@ -179,6 +181,15 @@ public class RobotContainer {
       m_robotDrive)
   );
   
+  m_driverController.back().onTrue(
+    new RunCommand(() -> {
+      double init_time = Timer.getTimestamp();
+      while (Timer.getTimestamp() - init_time <= 0.1){
+        m_elevator.elevate(.5d);
+      }
+    }
+    , m_elevator)
+  );
   //Subsystems
 /*  
   elevatorStop.get().whileTrue(
@@ -345,6 +356,7 @@ m_elevator));
     //return new RightAuto(m_robotDrive, m_claw, 15);
     return new AutoDriveForward(m_robotDrive, 15);
     //return new MiddleAuto(m_robotDrive, m_claw, 15);
+    //return new ElevatorAutoL2(m_elevator, 15);
     //return null;
   }
 }
